@@ -1,0 +1,595 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Advantedge Operations — Section Upload &amp; KPI Trace</title>
+<style>
+  :root {
+    --bg-deep:        #F2EFE5;
+    --bg-canvas:      #EBE7DA;
+    --bg-surface:     #FFFFFF;
+    --bg-elevated:    #FAF8F2;
+    --border-faint:   #E5E0D2;
+    --border-subtle:  #D5CFBC;
+    --border-strong:  #BAB29A;
+    --slate:          #4A5568;
+    --slate-bright:   #2D3748;
+    --gold:           #9C8240;
+    --gold-bright:    #BFA557;
+    --gold-faint:     #E8DEC0;
+    --text-primary:   #1A1F2E;
+    --text-secondary: #4A5568;
+    --text-tertiary:  #7A8294;
+    --text-muted:     #A8AEBA;
+    --success:        #2F7A50;
+    --success-bg:     #E7F3EC;
+    --warning:        #B8761C;
+    --warning-bg:     #FBF1E1;
+    --danger:         #B83838;
+    --danger-bg:      #FBEAEA;
+    --font-display: "EB Garamond", Georgia, serif;
+    --font-body:    "Inter", -apple-system, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg-deep); color: var(--text-primary);
+    font-family: var(--font-body); line-height: 1.5;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 28px 20px 80px; }
+  header.page { margin-bottom: 22px; }
+  header.page h1 { font-family: var(--font-display); font-size: 27px; font-weight: 600; margin: 0 0 4px; }
+  header.page p { color: var(--text-secondary); font-size: 14px; margin: 0; }
+  .community-row { display:flex; align-items:center; gap:10px; margin-top:10px; font-size:13px; color:var(--text-tertiary); }
+  .community-row input {
+    font: inherit; padding: 5px 9px; border: 1px solid var(--border-subtle); border-radius: 6px;
+    background: var(--bg-surface); color: var(--text-primary); width: 220px;
+  }
+  .mode-row { display:flex; align-items:center; gap:10px; margin-top:10px; font-size:13px; }
+  .mode-label { color: var(--text-secondary); }
+  .mode-label.beta { color: var(--gold-dim, var(--gold)); font-weight: 600; }
+  .switch { position: relative; display: inline-block; width: 42px; height: 24px; flex: none; cursor: pointer; }
+  .switch input { opacity: 0; width: 0; height: 0; }
+  .switch-track {
+    position: absolute; inset: 0; background: var(--border-strong); border-radius: 24px; transition: background .15s ease;
+  }
+  .switch-track .switch-thumb {
+    position: absolute; top: 2px; left: 2px; width: 20px; height: 20px; border-radius: 50%;
+    background: #fff; transition: transform .15s ease; box-shadow: 0 1px 2px rgba(0,0,0,.25);
+  }
+  .switch input:checked + .switch-track { background: var(--gold); }
+  .switch input:checked + .switch-track .switch-thumb { transform: translateX(18px); }
+
+  .grid4 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+  @media (max-width: 760px) { .grid4 { grid-template-columns: 1fr; } }
+
+  .zone-card {
+    background: var(--bg-surface); border: 1px solid var(--border-faint); border-radius: 12px;
+    padding: 16px; display: flex; flex-direction: column; gap: 10px;
+  }
+  .zone-card h3 { font-size: 15px; font-weight: 600; margin: 0; }
+  .zone-card .hint { font-size: 12px; color: var(--text-tertiary); margin: -6px 0 0; }
+
+  .dropzone {
+    border: 1.5px dashed var(--border-strong); border-radius: 10px; padding: 22px 14px;
+    text-align: center; cursor: pointer; background: var(--bg-elevated); transition: all .15s ease;
+  }
+  .dropzone:hover, .dropzone.drag { border-color: var(--gold); background: var(--gold-faint); }
+  .dropzone .icon { font-size: 22px; margin-bottom: 6px; color: var(--text-tertiary); }
+  .dropzone p { margin: 0; font-size: 13px; color: var(--text-secondary); }
+  .dropzone .formats { font-size: 11px; color: var(--text-muted); margin-top: 4px; }
+  .dropzone input[type=file] { display: none; }
+
+  .file-chip {
+    display: flex; align-items: center; justify-content: space-between; gap: 8px;
+    background: var(--bg-elevated); border: 1px solid var(--border-subtle); border-radius: 8px;
+    padding: 8px 10px; font-size: 13px;
+  }
+  .file-chip .name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .file-chip button {
+    border: none; background: transparent; color: var(--danger); cursor: pointer; font-size: 13px; font-weight: 600;
+  }
+
+  .zone-status { font-size: 12px; font-weight: 600; padding: 3px 8px; border-radius: 20px; display: inline-block; width: fit-content; }
+  .zone-status.idle { background: var(--border-faint); color: var(--text-tertiary); }
+  .zone-status.working { background: var(--gold-faint); color: var(--gold-dim, var(--gold)); }
+  .zone-status.done { background: var(--success-bg); color: var(--success); }
+  .zone-status.error { background: var(--danger-bg); color: var(--danger); }
+
+  .actions-bar {
+    display: flex; gap: 10px; align-items: center; justify-content: flex-end; margin: 18px 0 28px;
+    position: sticky; top: 0; background: var(--bg-deep); padding: 10px 0; z-index: 5;
+  }
+  .actions-bar .status-line { margin-right: auto; font-size: 13px; color: var(--text-secondary); }
+  button.btn {
+    font: inherit; font-size: 13px; font-weight: 600; padding: 9px 18px; border-radius: 8px;
+    cursor: pointer; border: 1px solid var(--border-strong);
+  }
+  button.btn.secondary { background: var(--bg-surface); color: var(--text-secondary); }
+  button.btn.secondary:hover { background: var(--bg-elevated); }
+  button.btn.primary { background: var(--slate-bright); color: #fff; border-color: var(--slate-bright); }
+  button.btn.primary:hover { background: var(--text-primary); }
+  button.btn:disabled { opacity: .45; cursor: not-allowed; }
+
+  section.panel {
+    background: var(--bg-surface); border: 1px solid var(--border-faint); border-radius: 12px;
+    padding: 18px 20px; margin-bottom: 18px;
+  }
+  section.panel h2 { font-family: var(--font-display); font-size: 19px; margin: 0 0 12px; }
+  section.panel h2 .count { font-family: var(--font-body); font-size: 12px; font-weight: 600; color: var(--text-tertiary); }
+
+  table.fields { width: 100%; border-collapse: collapse; font-size: 13px; }
+  table.fields th, table.fields td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--border-faint); }
+  table.fields th { color: var(--text-tertiary); font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: .02em; }
+  table.fields td.val { font-variant-numeric: tabular-nums; text-align: right; }
+  .found-yes { color: var(--success); font-weight: 700; }
+  .found-no { color: var(--text-muted); }
+  .meta-line { font-size: 12px; color: var(--text-tertiary); margin-top: 8px; }
+
+  .kpi-section-title { font-family: var(--font-display); font-size: 18px; margin: 22px 0 10px; padding-top: 8px; border-top: 1px solid var(--border-faint); }
+  .kpi-section-title:first-child { border-top: none; margin-top: 0; }
+
+  .kpi-card {
+    border: 1px solid var(--border-faint); border-radius: 10px; padding: 14px 16px; margin-bottom: 10px;
+    background: var(--bg-elevated);
+  }
+  .kpi-card .top { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+  .kpi-card .code { font-size: 11px; color: var(--text-muted); font-weight: 700; letter-spacing: .03em; }
+  .kpi-card .name { font-size: 14.5px; font-weight: 600; }
+  .badge { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 20px; }
+  .badge.pass { background: var(--success-bg); color: var(--success); }
+  .badge.watch { background: var(--warning-bg); color: var(--warning); }
+  .badge.below { background: var(--danger-bg); color: var(--danger); }
+  .badge.missing { background: var(--border-faint); color: var(--text-tertiary); }
+
+  .formula-line { font-family: "SFMono-Regular", Consolas, monospace; font-size: 12.5px; color: var(--text-secondary); margin-top: 8px; background: var(--bg-surface); border: 1px solid var(--border-faint); border-radius: 6px; padding: 8px 10px; }
+  .formula-line .sub { color: var(--text-tertiary); }
+  .formula-line .eq { color: var(--text-primary); font-weight: 700; }
+  .values-used { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+  .value-pill { font-size: 11.5px; background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: 20px; padding: 3px 10px; color: var(--text-secondary); }
+  .value-pill b { color: var(--text-primary); }
+  .missing-line { font-size: 12px; color: var(--danger); margin-top: 8px; }
+
+  .care-level-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-top: 10px; }
+  .care-level-col { background: var(--bg-surface); border: 1px solid var(--border-faint); border-radius: 8px; padding: 10px; }
+  .care-level-head { font-weight: 700; font-size: 12.5px; margin-bottom: 6px; display: flex; align-items: center; justify-content: space-between; gap: 6px; }
+  .care-level-col .values-used { margin-top: 4px; }
+  .care-level-col .value-pill { display: block; margin-bottom: 4px; }
+  .care-level-col .eq { font-weight: 700; color: var(--text-primary); display: block; margin-top: 4px; }
+  .care-level-col .meta-line { margin-top: 4px; }
+  .care-level-col .missing-line { margin-top: 4px; }
+
+  .empty-note { color: var(--text-tertiary); font-size: 13px; padding: 20px 0; text-align: center; }
+  #toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: var(--slate-bright); color: #fff; padding: 10px 18px; border-radius: 8px; font-size: 13px; opacity: 0; pointer-events: none; transition: opacity .2s; }
+  #toast.show { opacity: 1; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="page">
+    <h1>Section Upload &amp; KPI Trace</h1>
+    <p>Upload each operating report into its own section. The AI is sent only that section's field list, the values it finds are stored individually, and every KPI below shows the exact numbers and formula used to compute it.</p>
+    <div class="community-row">
+      Community slug: <input id="slugInput" value="cedar-bluff-commons">
+      <span id="communityName"></span>
+    </div>
+    <div class="mode-row">
+      <label class="switch">
+        <input type="checkbox" id="modeToggle">
+        <span class="switch-track"><span class="switch-thumb"></span></span>
+      </label>
+      <span class="mode-label" id="modeLabel">Code Interpreter mode — the AI computes final numbers itself inside a Python sandbox</span>
+    </div>
+    <!-- Foundry Agent mode toggle — disabled, not used going forward.
+    <div class="mode-row">
+      <label class="switch">
+        <input type="checkbox" id="foundryToggle">
+        <span class="switch-track"><span class="switch-thumb"></span></span>
+      </label>
+      <span class="mode-label beta" id="foundryLabel">Microsoft Foundry Agent mode (beta) — upload multiple files per section; they're size-batched and sent sequentially to one agent conversation. Overrides the toggle above while on.</span>
+    </div>
+    -->
+  </header>
+
+  <div class="grid4" id="zoneGrid"></div>
+
+  <div class="actions-bar">
+    <span class="status-line" id="statusLine"></span>
+    <button class="btn secondary" id="clearBtn">Clear All</button>
+    <button class="btn primary" id="submitBtn" disabled>Upload &amp; Process</button>
+  </div>
+
+  <section class="panel" id="extractedPanel" style="display:none;">
+    <h2>Extracted Data by Section</h2>
+    <div id="extractedBody"></div>
+  </section>
+
+  <section class="panel" id="kpiPanel" style="display:none;">
+    <h2>KPI Results — Formula, Values, Answer</h2>
+    <div id="kpiBody"></div>
+  </section>
+</div>
+<div id="toast"></div>
+
+<script>
+const BACKEND_URL = window.location.origin;
+const SECTIONS = [
+  { bucket: "census",  title: "Census / Occupancy Report",   hint: "Daily census log, occupancy by care level, admissions & discharges", accept: ".xlsx,.xls,.csv,.pdf" },
+  { bucket: "payroll", title: "Payroll / Turnover Report",    hint: "Payroll register, staffing detail, new hires, training compliance",   accept: ".xlsx,.xls,.csv,.pdf" },
+  { bucket: "clinical",title: "Clinical / EHR & MDS Report",  hint: "MDS assessments, care plans, falls, med errors, hospitalizations",    accept: ".xlsx,.xls,.csv,.pdf" },
+  { bucket: "dining",  title: "Dining / Food-Service Report", hint: "Meal service log, therapeutic diets, sanitation, nutrition",          accept: ".xlsx,.xls,.csv,.pdf" },
+];
+const IN_SCOPE_FAMILIES = ["census", "payroll", "clinical", "dining"];
+
+const state = {
+  files: {},        // bucket -> File[] (non-Foundry modes only ever use files[0])
+  results: {},       // bucket -> API response
+  registry: null,    // operand-registry.json
+  catalog: null,     // kpi-catalog.json
+  kpiResults: null,  // /kpis response
+};
+
+function toast(msg) {
+  const t = document.getElementById("toast");
+  t.textContent = msg;
+  t.classList.add("show");
+  clearTimeout(t._h);
+  t._h = setTimeout(() => t.classList.remove("show"), 2600);
+}
+function slug() { return document.getElementById("slugInput").value.trim() || "cedar-bluff-commons"; }
+function extractionMode() { return document.getElementById("modeToggle").checked ? "formula-plan" : "code-interpreter"; }
+function foundryMode() { return false; } // Foundry mode disabled, not used going forward
+document.getElementById("modeToggle").addEventListener("change", () => {
+  const label = document.getElementById("modeLabel");
+  if (extractionMode() === "formula-plan") {
+    label.textContent = "Formula Plan mode (beta) — the AI maps fields to a sheet/column/operation plan; our code computes the number";
+    label.classList.add("beta");
+  } else {
+    label.textContent = "Code Interpreter mode — the AI computes final numbers itself inside a Python sandbox";
+    label.classList.remove("beta");
+  }
+});
+// Foundry mode toggle listener — disabled, not used going forward (no
+// #foundryToggle element exists any more, so this must stay out).
+// document.getElementById("foundryToggle").addEventListener("change", () => { ... });
+function esc(s) { return String(s == null ? "" : s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c])); }
+function fmtNum(v) {
+  if (v == null || v === "") return "—";
+  if (typeof v !== "number") return esc(v);
+  return Math.abs(v) >= 1000 ? v.toLocaleString(undefined, { maximumFractionDigits: 2 }) : (Math.round(v * 100) / 100).toString();
+}
+
+// ---- Zone rendering -----------------------------------------------------
+function zoneCard(sec) {
+  const div = document.createElement("div");
+  div.className = "zone-card";
+  div.innerHTML = `
+    <h3>${esc(sec.title)}</h3>
+    <p class="hint">${esc(sec.hint)}</p>
+    <div class="dropzone" data-bucket="${sec.bucket}">
+      <div class="icon">⬆</div>
+      <p>Drag &amp; drop your ${esc(sec.title.split(" / ")[0]).toLowerCase()} report</p>
+      <div class="formats">or click to browse — ${esc(sec.accept.replace(/\./g, "").toUpperCase())}</div>
+      <input type="file" accept="${sec.accept}" multiple>
+    </div>
+    <div class="file-slot" data-bucket="${sec.bucket}"></div>
+    <div class="zone-status idle" data-status="${sec.bucket}">Waiting for file</div>
+  `;
+  const dz = div.querySelector(".dropzone");
+  const input = div.querySelector('input[type=file]');
+  dz.addEventListener("click", () => input.click());
+  input.addEventListener("change", () => { if (input.files.length) addFiles(sec.bucket, input.files); });
+  ["dragenter", "dragover"].forEach((ev) => dz.addEventListener(ev, (e) => { e.preventDefault(); dz.classList.add("drag"); }));
+  ["dragleave", "drop"].forEach((ev) => dz.addEventListener(ev, (e) => { e.preventDefault(); dz.classList.remove("drag"); }));
+  dz.addEventListener("drop", (e) => { if (e.dataTransfer.files.length) addFiles(sec.bucket, e.dataTransfer.files); });
+  return div;
+}
+// Every mode: a new pick APPENDS, so multiple files per section accumulate
+// (all modes now support more than one file per section — remove via the
+// chip's ✕ if you picked the wrong one).
+function addFiles(bucket, fileList) {
+  const picked = Array.from(fileList);
+  state.files[bucket] = (state.files[bucket] || []).concat(picked);
+  renderFileSlot(bucket);
+  updateSubmitEnabled();
+}
+function removeFileAt(bucket, idx) {
+  if (!state.files[bucket]) return;
+  state.files[bucket].splice(idx, 1);
+  if (!state.files[bucket].length) delete state.files[bucket];
+  renderFileSlot(bucket);
+  updateSubmitEnabled();
+}
+function renderFileSlot(bucket) {
+  const slot = document.querySelector(`.file-slot[data-bucket="${bucket}"]`);
+  const files = state.files[bucket] || [];
+  slot.innerHTML = files.map((f, i) => `<div class="file-chip"><span class="name">📄 ${esc(f.name)}</span><button data-remove="${i}">✕</button></div>`).join("");
+  slot.querySelectorAll("[data-remove]").forEach((btn) => btn.addEventListener("click", () => removeFileAt(bucket, Number(btn.dataset.remove))));
+}
+function setZoneStatus(bucket, cls, text) {
+  const el = document.querySelector(`[data-status="${bucket}"]`);
+  el.className = "zone-status " + cls;
+  el.textContent = text;
+}
+function updateSubmitEnabled() {
+  document.getElementById("submitBtn").disabled = !Object.values(state.files).some((arr) => arr && arr.length);
+}
+
+function renderZones() {
+  const grid = document.getElementById("zoneGrid");
+  grid.innerHTML = "";
+  SECTIONS.forEach((sec) => grid.appendChild(zoneCard(sec)));
+}
+
+// ---- Clear all -----------------------------------------------------------
+document.getElementById("clearBtn").addEventListener("click", () => {
+  state.files = {};
+  state.results = {};
+  state.kpiResults = null;
+  renderZones();
+  updateSubmitEnabled();
+  document.getElementById("extractedPanel").style.display = "none";
+  document.getElementById("kpiPanel").style.display = "none";
+  document.getElementById("statusLine").textContent = "";
+  SECTIONS.forEach((s) => setZoneStatus(s.bucket, "idle", "Waiting for file"));
+  toast("Cleared");
+});
+
+// ---- Submit / process ----------------------------------------------------
+document.getElementById("submitBtn").addEventListener("click", async () => {
+  const buckets = Object.keys(state.files);
+  if (!buckets.length) return;
+  document.getElementById("submitBtn").disabled = true;
+  document.getElementById("clearBtn").disabled = true;
+  document.getElementById("statusLine").textContent = `Processing ${buckets.length} section${buckets.length > 1 ? "s" : ""}…`;
+
+  await Promise.all(buckets.map(async (bucket) => {
+    const files = state.files[bucket] || [];
+    if (!files.length) return;
+    setZoneStatus(bucket, "working", `Sending ${files.length} file(s) to AI…`);
+    try {
+      const fd = new FormData();
+      files.forEach((f) => fd.append("files", f));
+      fd.append("mode", extractionMode());
+      const url = `${BACKEND_URL}/api/communities/${slug()}/documents/${bucket}`;
+      const res = await fetch(url, { method: "POST", body: fd });
+      const json = await res.json();
+      if (!res.ok) throw new Error(json.error || "Extraction failed");
+      state.results[bucket] = json;
+      setZoneStatus(bucket, "done", `${json.capturedCount}/${json.totalFields} fields found`);
+    } catch (err) {
+      state.results[bucket] = { error: err.message };
+      setZoneStatus(bucket, "error", "Failed — " + err.message);
+    }
+  }));
+
+  document.getElementById("statusLine").textContent = "Loading KPI results…";
+  renderExtracted();
+  await loadKpis();
+  document.getElementById("submitBtn").disabled = false;
+  document.getElementById("clearBtn").disabled = false;
+  document.getElementById("statusLine").textContent = "Done.";
+  toast("Processing complete");
+});
+
+// ---- Extracted-data-by-section panel -------------------------------------
+function planText(plan) {
+  if (!plan) return "—";
+  const opName = { sum: "SUM", count: "COUNT", average: "AVG", last: "LAST", first: "FIRST", max: "MAX", min: "MIN", count_per_group_average: "AVG COUNT/GROUP" }[plan.op] || plan.op;
+  const col = plan.columns ? plan.columns.join("+") : plan.column || "";
+  let s = `${opName}(${col}) in "${plan.sheet}"`;
+  if (plan.groupBy) s += ` grouped by "${plan.groupBy}"`;
+  if (plan.filters && plan.filters.length) {
+    s += " where " + plan.filters.map((f) => `${f.column} ${f.match} ${Array.isArray(f.value) ? "[" + f.value.join(",") + "]" : f.value}`).join(" and ");
+  }
+  return s;
+}
+function renderExtracted() {
+  const panel = document.getElementById("extractedPanel");
+  const body = document.getElementById("extractedBody");
+  panel.style.display = "block";
+  body.innerHTML = "";
+  SECTIONS.forEach((sec) => {
+    const r = state.results[sec.bucket];
+    if (!r) return;
+    const wrap = document.createElement("div");
+    wrap.style.marginBottom = "18px";
+    if (r.error) {
+      wrap.innerHTML = `<h3 style="font-size:14px;margin:0 0 6px;">${esc(sec.title)}</h3><div class="missing-line">${esc(r.error)}</div>`;
+      body.appendChild(wrap);
+      return;
+    }
+    const showPlan = r.mode === "formula-plan";
+    // A field extracted with a per-level breakdown shows it inline here too
+    // (not just inside KPI cards) — so it's visible at the point of
+    // extraction which fields the system was actually able to split by
+    // care level, and which only have the one blended figure.
+    const byLevelText = (f) => f.byCareLevel
+      ? Object.entries(f.byCareLevel).map(([lvl, v]) => `${esc(lvl)}: ${esc(fmtNum(v))}`).join(" · ")
+      : `<span style="color:var(--text-muted);">—</span>`;
+    const rows = r.fields.map((f) => `
+      <tr>
+        <td>${esc(f.label)} <span style="color:var(--text-muted);">(${esc(f.key)})</span></td>
+        <td class="val">${f.found ? esc(fmtNum(f.value)) : "—"}</td>
+        <td>${esc(f.unit || "")}</td>
+        <td class="${f.found ? "found-yes" : "found-no"}">${f.found ? "✓ found" : "not in document"}</td>
+        <td style="font-size:11.5px;">${byLevelText(f)}</td>
+        ${showPlan ? `<td style="font-family:monospace;font-size:11px;color:var(--text-tertiary);">${esc(planText(f.plan))}</td>` : ""}
+      </tr>`).join("");
+    const modeBadge = { "formula-plan": ["watch", "Formula Plan"], "foundry-agent": ["below", "Foundry Agent"] }[r.mode] || ["pass", "Code Interpreter"];
+    wrap.innerHTML = `
+      <h3 style="font-size:14px;margin:0 0 6px;">${esc(sec.title)} <span class="count">— ${r.capturedCount}/${r.totalFields} fields</span>
+        <span class="badge ${modeBadge[0]}" style="margin-left:8px;">${modeBadge[1]}</span>
+        ${r.batches ? `<span class="count">(${r.batches.length} batch${r.batches.length > 1 ? "es" : ""})</span>` : ""}
+      </h3>
+      <table class="fields">
+        <thead><tr><th>Field</th><th style="text-align:right;">Value</th><th>Unit</th><th>Status</th><th>By Care Level</th>${showPlan ? "<th>Plan (executed by our code)</th>" : ""}</tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+      <div class="meta-line">Model: ${esc(r.model)} · ${r.tokens.total.toLocaleString()} tokens · est. cost $${r.estimatedCostUsd.toFixed(4)}</div>
+    `;
+    body.appendChild(wrap);
+  });
+}
+
+// ---- KPI trace panel ------------------------------------------------------
+async function loadReferenceData() {
+  if (state.registry && state.catalog) return;
+  const [reg, cat] = await Promise.all([
+    fetch(`${BACKEND_URL}/engine-data/operand-registry.json`).then((r) => r.json()),
+    fetch(`${BACKEND_URL}/engine-data/kpi-catalog.json`).then((r) => r.json()),
+  ]);
+  state.registry = reg;
+  state.catalog = cat;
+}
+function keyFamily(key) { return (state.registry[key] || {}).family; }
+function isInScope(entry) {
+  if (entry.source !== "upload") return false;
+  const req = (entry.inputs || []).filter((i) => i.unit !== "text");
+  if (!req.length) return false;
+  return req.every((i) => IN_SCOPE_FAMILIES.includes(keyFamily(i.key)));
+}
+// Substitute variable names in a formula string with their resolved values,
+// longest keys first so "totalPatientDays" isn't partially matched by "totalDays".
+function substituteFormula(formula, vals) {
+  const keys = Object.keys(vals).sort((a, b) => b.length - a.length);
+  let out = formula;
+  keys.forEach((k) => {
+    const re = new RegExp("\\b" + k + "\\b", "g");
+    out = out.replace(re, fmtNum(vals[k]));
+  });
+  return out;
+}
+async function loadKpis() {
+  await loadReferenceData();
+  const res = await fetch(`${BACKEND_URL}/api/communities/${slug()}/kpis`);
+  const json = await res.json();
+  state.kpiResults = json;
+  renderKpis();
+}
+function renderKpis() {
+  const panel = document.getElementById("kpiPanel");
+  const body = document.getElementById("kpiBody");
+  panel.style.display = "block";
+  const R = state.kpiResults;
+  if (!R) { body.innerHTML = `<div class="empty-note">Upload at least one section to see KPI results.</div>`; return; }
+
+  const scoped = state.catalog.filter(isInScope);
+  const bySection = {};
+  scoped.forEach((e) => { (bySection[e.section] = bySection[e.section] || []).push(e); });
+
+  if (!scoped.length) { body.innerHTML = `<div class="empty-note">No KPIs matched.</div>`; return; }
+
+  let html = "";
+  Object.keys(bySection).forEach((section) => {
+    html += `<div class="kpi-section-title">${esc(section)}</div>`;
+    bySection[section].forEach((entry) => {
+      const r = R.results[entry.code] || {};
+      html += renderKpiCard(entry, r);
+    });
+  });
+  body.innerHTML = html;
+}
+function renderKpiCard(entry, r) {
+  const req = (entry.inputs || []).filter((i) => i.unit !== "text");
+  const badge = r.status === "computed"
+    ? (r.scoreBand ? `<span class="badge ${r.scoreBand}">${r.scoreBand}</span>` : `<span class="badge pass">computed</span>`)
+    : r.status === "compute-error"
+    ? `<span class="badge below">compute error</span>`
+    : `<span class="badge missing">${esc(r.status || "no data yet")}</span>`;
+
+  const ERROR_REASONS = {
+    "division-by-zero": "the denominator is zero — one of the values below was extracted as 0 when it likely shouldn't be. Re-upload that section to re-extract it.",
+    "non-numeric-result": "the formula did not produce a number — check the values below for something unexpected.",
+    "formula-exception": "the formula could not be evaluated — this looks like a bug in the KPI formula itself, not your data.",
+  };
+
+  let body = "";
+  if (r.byCareLevel) {
+    // Level-specific KPI (e.g. Occupancy Rate by Care Level): one column per
+    // care level instead of one blended number — blending IL+AL+MC+SNF into
+    // a single average would hide exactly the per-level differences this
+    // KPI exists to show.
+    const cols = r.byCareLevel.map((lr) => {
+      const lvlBadge = lr.status === "computed"
+        ? (lr.scoreBand ? `<span class="badge ${lr.scoreBand}">${lr.scoreBand}</span>` : `<span class="badge pass">computed</span>`)
+        : `<span class="badge missing">${esc(lr.status || "no data")}</span>`;
+      let inner;
+      if (lr.status === "computed" && lr.vals) {
+        const pills = req.map((i) => `<span class="value-pill">${esc(i.label)} = <b>${fmtNum(lr.vals[i.key])}</b></span>`).join("");
+        const valueText = typeof lr.value === "object"
+          ? "(multiple components)"
+          : `${fmtNum(lr.value)}${entry.unit === "percent" ? "%" : entry.unit ? " " + esc(entry.unit) : ""}`;
+        const targetLine = lr.target != null ? `<div class="meta-line">Target: ${esc(lr.target)}</div>` : `<div class="meta-line">No level-specific benchmark on file.</div>`;
+        inner = `<div class="values-used">${pills}</div><div class="eq">= ${valueText}</div>${targetLine}`;
+      } else {
+        const missing = lr.missing || [];
+        inner = `<div class="missing-line">Needs: ${missing.map((k) => esc((state.registry[k] || {}).label || k)).join(", ") || "data for this level"}</div>`;
+      }
+      return `<div class="care-level-col"><div class="care-level-head">${esc(lr.level)} ${lvlBadge}</div>${inner}</div>`;
+    }).join("");
+    body = `<div class="formula-line"><span class="sub">${esc(entry.formula)}</span> — computed separately per care level</div><div class="care-level-row">${cols}</div>`;
+  } else if ((r.status === "computed" || r.status === "compute-error") && r.vals) {
+    const pills = req.map((i) => `<span class="value-pill">${esc(i.label)} = <b>${fmtNum(r.vals[i.key])}</b> ${esc(i.unit || "")}</span>`).join("");
+    if (r.status === "compute-error") {
+      const substituted = substituteFormula(entry.formula, r.vals);
+      body = `
+        <div class="values-used">${pills}</div>
+        <div class="formula-line"><span class="sub">${esc(entry.formula)}</span> &nbsp;→&nbsp; ${esc(substituted)} <span class="eq">= undefined</span></div>
+        <div class="missing-line">These values WERE found — the formula still failed because ${esc(ERROR_REASONS[r.errorReason] || "of an unexpected result")}</div>
+      `;
+    } else {
+      let answerLine;
+      if (entry.formula === "direct") {
+        answerLine = (r.value !== null && typeof r.value === "object")
+          ? `<span class="sub">Multiple components reported directly — see the values above (no single combined figure for this KPI).</span>`
+          : `<span class="eq">= ${fmtNum(r.value)} ${esc(entry.unit || "")}</span>`;
+      } else if (entry.formula === "distribution") {
+        answerLine = `<span class="sub">Category breakdown — see individual counts above.</span>`;
+      } else {
+        const substituted = substituteFormula(entry.formula, r.vals);
+        answerLine = `<span class="sub">${esc(entry.formula)}</span> &nbsp;→&nbsp; ${esc(substituted)} <span class="eq">= ${fmtNum(r.value)}${entry.unit === "percent" ? "%" : entry.unit ? " " + esc(entry.unit) : ""}</span>`;
+      }
+      body = `
+        <div class="values-used">${pills}</div>
+        <div class="formula-line">${answerLine}</div>
+        ${entry.benchmark && entry.benchmark.threshold && entry.benchmark.threshold.target != null
+          ? `<div class="meta-line">Benchmark target: ${esc(entry.benchmark.threshold.target)}${entry.benchmark.threshold.note ? " — " + esc(entry.benchmark.threshold.note) : ""}</div>` : ""}
+      `;
+    }
+  } else {
+    const missing = (r.missing || req.map((i) => i.key));
+    body = `
+      <div class="formula-line"><span class="sub">${esc(entry.formula || "")}</span></div>
+      <div class="missing-line">Needs: ${missing.map((k) => esc((state.registry[k] || {}).label || k)).join(", ")} — upload the section that reports ${missing.length > 1 ? "these" : "this"} field${missing.length > 1 ? "s" : ""}.</div>
+    `;
+  }
+
+  return `
+    <div class="kpi-card">
+      <div class="top">
+        <div><span class="code">${esc(entry.code)}</span> &nbsp; <span class="name">${esc(entry.name)}</span></div>
+        ${badge}
+      </div>
+      ${body}
+    </div>
+  `;
+}
+
+// ---- Init ------------------------------------------------------------------
+async function init() {
+  renderZones();
+  try {
+    const c = await fetch(`${BACKEND_URL}/api/communities/${slug()}`).then((r) => r.json());
+    document.getElementById("communityName").textContent = c.name ? `— ${c.name}` : "";
+  } catch (e) {}
+  await loadReferenceData();
+  // If the community already has stored operand values (e.g. re-visiting),
+  // show the KPI trace immediately without requiring a re-upload.
+  try { await loadKpis(); document.getElementById("statusLine").textContent = "Showing previously stored data — upload to refresh."; }
+  catch (e) {}
+}
+init();
+</script>
+</body>
+</html>

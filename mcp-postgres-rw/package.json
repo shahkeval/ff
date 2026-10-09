@@ -1,0 +1,11 @@
+{
+  "name": "vmp-poc-postgres-rw",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "index.mjs",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "pg": "^8.11.0"
+  }
+}

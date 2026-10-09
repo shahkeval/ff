@@ -1,0 +1,2956 @@
+[
+  {
+    "code": "OPS-01",
+    "section": "Operations",
+    "name": "Total Occupied Units by Care Level",
+    "benchmark": {
+      "value": "Sales / Revenue: Occupancy — IL (87.8% median), AL (89.9%), MC (86.0%), CCRC (90.6%) — SOSH 2025 Table 2.7",
+      "source": "SOSH 2025",
+      "basis": "Industry / CMS survey",
+      "threshold": {
+        "scored": true,
+        "direction": "higher",
+        "target": 88.7,
+        "byCareLevel": {
+          "IL": 87.8,
+          "AL": 89.9,
+          "MC": 86,
+          "CCRC": 90.6
+        },
+        "note": "Occupancy median; NIC overall 88.7%."
+      }
+    },
+    "source": "upload",
+    "intake": "report-guide",
+    "unit": "percent",
+    "formula": "(occupiedUnits / availableUnits) * 100",
+    "inputs": [
+      {
+        "key": "occupiedUnits",
+        "label": "Occupied units (by care level)",
+        "unit": "count"
+      },
+      {
+        "key": "availableUnits",
+        "label": "Available/licensed units",
+        "unit": "count"
+      }
+    ],
+    "careLevels": [
+      "IL",
+      "AL",
+      "MC",
+      "SNF"
+    ]
+  },
+  {
+    "code": "OPS-02",
+    "section": "Operations",
+    "name": "Net Census Change",
+    "benchmark": {
+      "value": "Directional: NIC MAP senior-housing occupancy ~88.7% Q3 2025, rising ~0.5-0.7 pp/qtr for 17+ consecutive quarters (IL 90.2%, AL 87.2%). A community with net census decline while the sector rises is the red flag. Gross-decline reference: SOSH 2025 move-out/turnover (IL 44.3%, AL 48.1%, MC 64.7%, CCRC 15.6%).",
+      "source": "NIC MAP Senior Housing Market Fundamentals (quarterly); SOSH 2025 Table 2.15",
+      "basis": "Industry — NIC MAP trend + SOSH turnover (directional)",
+      "threshold": {
+        "scored": false,
+        "note": "Directional — positive net change favorable; no fixed target."
+      }
+    },
+    "source": "upload",
+    "intake": "report-guide",
+    "unit": "change",
+    "formula": "censusEnd - censusStart",
+    "inputs": [
+      {
+        "key": "censusStart",
+        "label": "Census at period start",
+        "unit": "count"
+      },
+      {
+        "key": "censusEnd",
+        "label": "Census at period end",
+        "unit": "count"
+      }
+    ]
+  },
+  {
+    "code": "OPS-03",
+    "section": "Operations",
+    "name": "Resident Satisfaction Score",
+    "benchmark": {
+      "value": "Holleran National Benchmark (>160K resident/employee surveys; Choice Award = mean >85th percentile = top ~15%). J.D. Power 2025 IL resident overall satisfaction 753/1000. CoreQ standardized satisfaction (state-required in many states); top-quartile target.",
+      "source": "Holleran; J.D. Power 2025 U.S. Senior Living Satisfaction Study; CoreQ",
+      "basis": "Industry — Holleran / CoreQ / J.D. Power",
+      "threshold": {
+        "scored": false,
+        "note": "Holleran national / Choice Award >85th pct — scale-dependent; needs survey-scale normalization."
+      }
+    },
+    "source": "manual",
+    "intake": "manual",
+    "unit": "score",
+    "formula": "direct",
+    "inputs": [
+      {
+        "key": "residentSatScore",
+        "label": "Resident satisfaction score (as measured)",
+        "unit": "score"
+      }
+    ],
+    "directEntry": true,
+    "redFlag": {
+      "pair": "resident",
+      "with": [
+        "OPS-03",
+        "OPS-05"
+      ],
+      "rule": "Fires only if the operator measures NEITHER resident satisfaction (OPS-03) NOR resident engagement (OPS-05)."
+    }
+  },
+  {
+    "code": "OPS-04",
+    "section": "Operations",
+    "name": "Family Satisfaction Score",
+    "benchmark": {
+      "value": "J.D. Power 2025 AL/MC family/decision-maker overall satisfaction 867/1000; care by staff all-time high 8.89/10. Holleran family benchmark (85th-pctile target); CoreQ family measure.",
+      "source": "J.D. Power 2025 U.S. Senior Living Satisfaction Study; Holleran; CoreQ",
+      "basis": "Industry — J.D. Power / Holleran / CoreQ",
+      "threshold": {
+        "scored": true,
+        "direction": "higher",
+        "target": 867,
+        "scale": 1000,
+        "note": "J.D. Power 2025 AL/MC overall 867/1000."
+      }
+    },
+    "source": "manual",
+    "intake": "manual",
+    "unit": "score",
+    "formula": "direct",
+    "inputs": [
+      {
+        "key": "familySatScore",
+        "label": "Family satisfaction score (as measured)",
+        "unit": "score"
+      }
+    ],
+    "directEntry": true
+  },
+  {
+    "code": "OPS-05",
+    "section": "Operations",
+    "name": "Resident Engagement Index",
+    "benchmark": {
+      "value": "Life Enrichment: Weekly Participation Rate (>80%) — one component of the composite",
+      "source": "Industry best practices; LeadingAge",
+      "basis": "Industry / CMS survey",
+      "threshold": {
+        "scored": true,
+        "direction": "higher",
+        "target": 80,
+        "note": "Weekly participation >80%."
+      }
+    },
+    "source": "manual",
+    "intake": "manual",
+    "unit": "percent",
+    "formula": "(participatingResidents / totalResidents) * 100",
+    "inputs": [
+      {
+        "key": "participatingResidents",
+        "label": "Residents participating (weekly)",
+        "unit": "count"
+      },
+      {
+        "key": "totalResidents",
+        "label": "Total residents",
+        "unit": "count"
+      }
+    ],
+    "redFlag": {
+      "pair": "resident",
+      "with": [
+        "OPS-03",
+        "OPS-05"
+      ],
+      "rule": "Fires only if the operator measures NEITHER resident satisfaction (OPS-03) NOR resident engagement (OPS-05)."
+    }
+  },
+  {
+    "code": "OPS-06",
+    "section": "Operations",
+    "name": "Community-Wide Incident Report Rate",
+    "benchmark": {
+      "value": "No single industry composite — benchmark the components: falls 3.5-4.0/1,000 resident-days, plus CMS adverse-event QMs. Composite incident rate is read on the community's own trend.",
+      "source": "CMS Quality Measures; CDC NHSN (component-level)",
+      "basis": "Component-level — CMS QMs / CDC (composite = own-trend)",
+      "threshold": {
+        "scored": false,
+        "note": "No single industry composite; score components (falls etc.) instead."
+      }
+    },
+    "source": "upload",
+    "intake": "report-guide",
+    "unit": "rate",
+    "formula": "(incidentCount / residentDays) * 1000",
+    "inputs": [
+      {
+        "key": "incidentCount",
+        "label": "Incident reports in period",
+        "unit": "count"
+      },
+      {
+        "key": "residentDays",
+        "label": "Resident-days in period",
+        "unit": "count"
+      }
+    ]
+  },
+  {
+    "code": "OPS-07",
+    "section": "Operations",
+    "name": "Grievance and Complaint Volume and Resolution Time",
+    "benchmark": {
+      "value": "Regulatory framework: NH resident grievances resolved promptly under CMS §483.10(j); Medicare-plan grievance standard ≤30 days (reference). Best-practice convention: acknowledge ≤3-5 business days, resolve ≤30 days. State IJ complaint investigation starts within 3 business days.",
+      "source": "CMS 42 CFR §483.10(j) / State Operations Manual; CMS 30-day grievance standard",
+      "basis": "Regulatory framework — CMS §483.10(j) + operator SLA",
+      "threshold": {
+        "scored": false,
+        "note": "Regulatory 'resolve promptly'; no industry % — operator target."
+      }
+    },
+    "source": "upload",
+    "intake": "report-guide",
+    "unit": "percent",
+    "formula": "(grievancesResolvedOnTime / grievanceCount) * 100",
+    "inputs": [
+      {
+        "key": "grievanceCount",
+        "label": "Grievances/complaints logged",
+        "unit": "count"
+      },
+      {
+        "key": "grievancesResolvedOnTime",
+        "label": "Resolved within standard",
+        "unit": "count"
+      }
+    ]
+  },
+  {
+    "code": "RESE-12",
+    "section": "Resident Engagement / Communication",
+    "name": "Resident Length of Stay (Average)",
+    "benchmark": {
+      "value": "Sales / Revenue: Annual Turnover (IL 44.3%, AL 48.1%, MC 64.7%, CCRC 15.6%) — inverse signal of LOS",
+      "source": "SOSH 2025 (Table 2.15 — Annual Turnover)",
+      "basis": "Industry / CMS survey",
+      "threshold": {
+        "scored": false,
+        "note": "Inverse signal of turnover; no direct LOS benchmark."
+      }
+    },
+    "source": "upload",
+    "intake": "report-guide",
+    "unit": "days",
+    "formula": "sumResidentTenureDays / residentsDeparted",
+    "inputs": [
+      {
+        "key": "sumResidentTenureDays",
+        "label": "Sum of resident tenure days (departed)",
+        "unit": "days"
+      },
+      {
+        "key": "residentsDeparted",
+        "label": "Residents departed in period",
+        "unit": "count"
+      }
+    ],
+    "libraryCode": "OPS-08",
+    "careLevels": [
+      "IL",
+      "AL",
+      "MC",
+      "SNF"
+    ]
+  },
+  {
+    "code": "SALM-16",
+    "section": "Sales / Marketing / CRM",
+    "name": "Move-Out Reason Distribution",
+    "benchmark": {
+      "value": "Sales / Revenue: Annual Turnover provides gross rate but not reason breakdown",
+      "source": "SOSH 2025 (Table 2.15 — Annual Turnover)",
+      "basis": "Industry / CMS survey",
+      "threshold": {
+        "scored": false,
+        "note": "Distribution — reason breakdown, not a single target."
+      }
+    },
+    "source": "upload",
+    "intake": "report-guide",
+    "unit": "distribution",
+    "formula": "distribution",
+    "inputs": [
+      {
+        "key": "residentsDeparted",
+        "label": "Residents departed in period",
+        "unit": "count"
+      }
+    ],
+    "categories": [
+      "Death",
+      "Level of Care Change",
+      "Dissatisfaction",
+      "Other"
+    ],
+    "note": "Total departures from the census Discharge Detail sheet; reason-level breakdown available from that sheet's Discharge Reason column (Deceased, Transferred to higher level of care, Financial, Family relocation, Dissatisfaction, Hospitalized).",
+    "reviewResolved": true,
+    "libraryCode": "OPS-10"
+  },
+  {
+    "code": "SAL-01",
+    "section": "Sales & Marketing",
+    "name": "Lead Volume by Source",
+    "benchmark": {
+      "value": "Marketing: Lead Volume (50/mo per 100 units) + Lead Source Mix — Web (51-55%) + Calls (25-27%)",
+      "source": "Aline Q3 2025; Aline Benchmark 2024",
+      "basis": "Industry / CMS survey",
+      "threshold": {
+        "scored": false,
+        "note": "Benchmark is 50/mo per 100 units — needs unit-count normalization."
+      }
+    },
+    "source": "upload",
+    "intake": "report-guide",
+    "unit": "count",
+    "formula": "totalLeads / months",
+    "inputs": [
+      {
+        "key": "leadsBySource",
+        "label": "Leads keyed by source",
+        "unit": "count"
+      },
+      {
+        "key": "totalLeads",
+        "label": "Total leads",
+        "unit": "count"
+      },
+      {
+        "key": "months",
+        "label": "Months in period",
+        "unit": "count"
+      }
+    ]
+  },
+  {
+    "code": "SAL-02",
+    "section": "Sales & Marketing",
+    "name": "Lead-to-Tour Conversion Rate",
+    "benchmark": {
+      "value": "Marketing: Inquiry to Tour Conversion (~29% avg; IL 25-30%, AL 27-32%, MC 30-35%)",
+      "source": "Aline Q3 2025",
+      "basis": "Industry / CMS survey",
+      "threshold": {
+        "scored": true,
+        "direction": "higher",
+        "target": 29,
+        "byCareLevel": {
+          "IL": 27,
+          "AL": 29,
+          "MC": 32
+        },
+        "note": "Inquiry→tour ~29%."
+      }
+    },
+    "source": "upload",
+    "intake": "report-guide",
+    "unit": "percent",
+    "formula": "(tours / leads) * 100",
+    "inputs": [
+      {
+        "key": "leads",
+        "label": "Leads/inquiries",
+        "unit": "count"
+      },
+      {
+        "key": "tours",
+        "label": "Tours conducted",
+        "unit": "count"
+      }
+    ]
+  },
+  {
+    "code": "SAL-03",
+    "section": "Sales & Marketing",
+    "name": "Tour-to-Move-In Conversion Rate",
+    "benchmark": {
+      "value": "Marketing: Tour to Move-in Conversion (28-34%, target >30%) + Sales: Tour to Deposit Conversion",
+      "source": "Aline 2024; Creating Results",
+      "basis": "Industry / CMS survey",
+      "threshold": {
+        "scored": true,
+        "direction": "higher",
+        "target": 30,
+        "lo": 28,
+        "hi": 34,
+        "note": "Tour→move-in 28-34%, target >30%."
+      }
+    },
+    "source": "upload",
+    "intake": "report-guide",
+    "unit": "percent",
+    "formula": "(moveIns / tours) * 100",
+    "inputs": [
+      {
+        "key": "tours",
+        "label": "Tours conducted",
+        "unit": "count"
+      },
+      {
+        "key": "moveIns",
+        "label": "Move-ins",
+        "unit": "count"
+      }
+    ]
+  },
+  {
+    "code": "SAL-04",
+    "section": "Sales & Marketing",
+    "name": "Deposit-to-Move-In Conversion Rate",
+    "benchmark": {
+      "value": "Sales / Revenue: Deposit to Move-in Conversion (80-90%)",
+      "source": "Industry best practices",
+      "basis": "Industry / CMS survey",
+      "threshold": {
+        "scored": true,
+        "direction": "higher",
+        "target": 85,
+        "lo": 80,
+        "hi": 90,
+        "note": "Deposit→move-in 80-90%."
+      }
+    },
+    "source": "upload",
+    "intake": "report-guide",
+    "unit": "percent",
+    "formula": "(moveInsFromDeposits / deposits) * 100",
+    "inputs": [
+      {
+        "key": "deposits",
+        "label": "Deposits taken",
+        "unit": "count"
+      },
+      {
+        "key": "moveInsFromDeposits",
+        "label": "Deposits converting to move-in",
+        "unit": "count"
+      }
+    ]
+  },
+  {
+    "code": "SAL-05",
+    "section": "Sales & Marketing",
+    "name": "Inquiry-to-Move-In Conversion Rate",
+    "benchmark": {
+      "value": "Sales / Revenue: Inquiry to Move-in Conversion (IL 6-8%, AL 9%, MC 13%) — funnel efficiency but not days metric",
+      "source": "Creating Results; Aline 2024",
+      "basis": "Industry / CMS survey",
+      "threshold": {
+        "scored": true,
+        "direction": "higher",
+        "target": 9,
+        "byCareLevel": {
+          "IL": 7,
+          "AL": 9,
+          "MC": 13
+        },
+        "note": "Inquiry→move-in conversion (SOSH 2025: IL 6-8%, AL 9%, MC 13%)."
+      }
+    },
+    "source": "upload",
+    "intake": "report-guide",
+    "unit": "percent",
+    "formula": "(moveInCount / leads) * 100",
+    "inputs": [
+      {
+        "key": "moveInCount",
+        "label": "Move-ins in period",
+        "unit": "count"
+      },
+      {
+        "key": "leads",
+        "label": "Inquiries/leads in period",
+        "unit": "count"
+      }
+    ],
+    "reviewResolvedV83": true
+  },
+  {
+    "code": "SAL-06",
+    "section": "Sales & Marketing",
+    "name": "Active Pipeline Depth by Stage",
+    "benchmark": {
+      "value": "Sales / Revenue: Pipeline Coverage Ratio (3-4x prospects to needed move-ins)",
+      "source": "Industry best practices",
+      "basis": "Industry / CMS survey",
+      "threshold": {
+        "scored": true,
+        "direction": "higher",
+        "target": 3,
+        "lo": 3,
+        "hi": 4,
+        "note": "Pipeline coverage 3-4x."
+      }
+    },
+    "source": "upload",
+    "intake": "report-guide",
+    "unit": "ratio",
+    "formula": "activeLeads / monthlyMoveInTarget",
+    "inputs": [
+      {
+        "key": "activeLeads",
+        "label": "Active leads in pipeline",
+        "unit": "count"
+      },
+      {
+        "key": "monthlyMoveInTarget",
+        "label": "Monthly move-in target",
+        "unit": "count"
+      }
+    ]
+  },
+  {
+    "code": "SAL-07",
+    "section": "Sales & Marketing",
+    "name": "Referral Source Mix and Conversion",
+    "benchmark": {
+      "value": "Marketing: Lead Source Mix covers mix; conversion-by-source not separately benchmarked",
+      "source": "Aline Q3 2025 (Lead Source Mix)",
+      "basis": "Industry / CMS survey",
+      "threshold": {
+        "scored": false,
+        "note": "Distribution — source mix; per-source conversion unbenchmarked."
+      }
+    },
+    "source": "upload",
+    "intake": "report-guide",
+    "unit": "distribution",
+    "formula": "distribution",
+    "inputs": [
+      {
+        "key": "leadsBySource",
+        "label": "Leads keyed by referral source",
+        "unit": "count"
+      },
+      {
+        "key": "totalLeads",
+        "label": "Total leads",
+        "unit": "count"
+      },
+      {
+        "key": "moveInsBySource",
+        "label": "Move-ins keyed by source (informational)",
+        "unit": "count"
+      }
+    ],
+    "note": "Benchmarked metric = lead source mix (% of leads by source) vs Lead Source Mix. Per-source conversion (moveInsBySource/leadsBySource) kept as informational/unbenchmarked.",
+    "reviewResolved": true
+  },
+  {
+    "code": "SAL-09",
+    "section": "Sales & Marketing",
+    "name": "Online Reputation Score",
+    "benchmark": {
+      "value": "Marketing: Online Review Rating (4.5+ stars, 50+ reviews, 100% response)",
+      "source": "Senior Housing News; Caring.com",
+      "basis": "Industry / CMS survey",
+      "threshold": {
+        "scored": true,
+        "direction": "higher",
+        "target": 4.5,
+        "scale": 5,
+        "note": "Online rating 4.5+ stars."
+      }
+    },
+    "source": "manual",
+    "intake": "manual",
+    "unit": "score",
+    "formula": "direct",
+    "inputs": [
+      {
+        "key": "reputationScore",
+        "label": "Online review rating",
+        "unit": "score"
+      },
+      {
+        "key": "reviewPlatform",
+        "label": "Source platform (Google/Caring/etc.)",
+        "unit": "text"
+      }
+    ],
+    "directEntry": true
+  },
+  {
+    "code": "SAL-10",
+    "section": "Sales & Marketing",
+    "name": "Average Rate Achieved on New Move-Ins",
+    "benchmark": {
+      "value": "Sales / Revenue: Concessions % of Gross Rent (<3%) — discount discipline only",
+      "source": "Internal operational metric",
+      "basis": "Industry / CMS survey",
+      "threshold": {
+        "scored": true,
+        "direction": "lower",
+        "target": 3,
+        "note": "Concessions % of gross rent <3%."
+      }
+    },
+    "source": "upload",
+    "intake": "report-guide",
+    "unit": "percent",
+    "formula": "((streetRate - (achievedRateSum / newMoveIns)) / streetRate) * 100",
+    "inputs": [
+      {
+        "key": "achievedRateSum",
+        "label": "Sum of achieved rate on new move-ins",
+        "unit": "dollar"
+      },
+      {
+        "key": "newMoveIns",
+        "label": "New move-ins in period",
+        "unit": "count"
+      },
+      {
+        "key": "streetRate",
+        "label": "Published street/market rate (blended)",
+        "unit": "dollar"
+      }
+    ],
+    "companion": "avgAchievedRate = achievedRateSum / newMoveIns ($)",
+    "note": "Benchmarked = concessions % of street rate (<3%); avg achieved rate ($) shown as companion.",
+    "reviewResolved": true
+  },
+  {
+    "code": "NURC-15",
+    "section": "Nursing / Clinical",
+    "name": "Assessment Completion Rate (MDS / Service Plan)",
+    "benchmark": {
+      "value": "MDS: Assessment Timeliness (100% on-time) + Late Assessment Rate (0%)",
+      "source": "CMS RAI Manual",
+      "basis": "Industry / CMS survey",
+      "threshold": {
+        "scored": true,
+        "direction": "higher",
+        "target": 100,
+        "note": "MDS timeliness 100% on-time."
+      }
+    },
+    "source": "upload",
+    "intake": "report-guide",
+    "unit": "percent",
+    "formula": "(mdsOnTime / mdsTotal) * 100",
+    "inputs": [
+      {
+        "key": "mdsOnTime",
+        "label": "MDS assessments completed on time",
+        "unit": "count"
+      },
+      {
+        "key": "mdsTotal",
+        "label": "MDS assessments due",
+        "unit": "count"
+      }
+    ],
+    "libraryCode": "NUR-01"
+  },
+  {
+    "code": "NURC-19",
+    "section": "Nursing / MDS",
+    "name": "ARD Accuracy Rate",
+    "benchmark": {
+      "value": "MDS: Coding Accuracy vs Clinical Records (>95%) — related quality measure on adjacent dimension",
+      "source": "Internal audit standards",
+      "basis": "Industry / CMS survey",
+      "threshold": {
+        "scored": true,
+        "direction": "higher",
+        "target": 95,
+        "note": "Coding accuracy >95%."
+      }
+    },
+    "source": "upload",
+    "intake": "report-guide",
+    "unit": "percent",
+    "formula": "(accurateAssessments / auditedAssessments) * 100",
+    "inputs": [
+      {
+        "key": "auditedAssessments",
+        "label": "Assessments audited",
+        "unit": "count"
+      },
+      {
+        "key": "accurateAssessments",
+        "label": "Assessments coded accurately",
+        "unit": "count"
+      }
+    ],
+    "libraryCode": "NUR-02"
+  },
+  {
+    "code": "NURC-14",
+    "section": "Nursing / MDS",
+    "name": "Care Plan Timeliness Compliance",
+    "benchmark": {
+      "value": "CMS regulatory: comprehensive care plan within 7 days of completing the comprehensive assessment (F657 / §483.21(b)(2)(i)); baseline care plan within 48 hours of admission (F655); review/revise after each assessment. Target = 100% on-time.",
+      "source": "CMS 42 CFR §483.21(b) — F-tags F655 / F656 / F657",
+      "basis": "Regulatory — CMS §483.21(b) F655/F657",
+      "threshold": {
+        "scored": true,
+        "direction": "higher",
+        "target": 100,
+        "note": "Care plan within 7 days (regulatory)."
+      }
+    },
+    "source": "upload",
+    "intake": "report-guide",
+    "unit": "percent",
+    "formula": "(carePlansOnTime / carePlansDue) * 100",
+    "inputs": [
+      {
+        "key": "carePlansDue",
+        "label": "Care plans due for completion/update",
+        "unit": "count"
+      },
+      {
+        "key": "carePlansOnTime",
+        "label": "Completed/updated on time",
+        "unit": "count"
+      }
+    ],
+    "libraryCode": "NUR-03"
+  },
+  {
+    "code": "NUR-04",
+    "section": "Nursing / MDS",
+    "name": "Medication Administration Error Rate",
+    "benchmark": {
+      "value": "CMS regulatory: medication error rate must be kept below 5%, with zero significant medication errors. Top-quartile (BCMA-enabled) substantially lower.",
+      "source": "CMS 42 CFR §483.45 — F-tags F759 (error rate <5%) / F760 (significant errors)",
+      "basis": "Regulatory — CMS §483.45 F759/F760",
+      "threshold": {
+        "scored": true,
+        "direction": "lower",
+        "target": 5,
+        "note": "Med error rate <5%; zero significant."
+      }
+    },
+    "source": "upload",
+    "intake": "report-guide",
+    "unit": "rate",
+    "formula": "(medErrors / dosesAdministered) * 100",
+    "inputs": [
+      {
+        "key": "medErrors",
+        "label": "Medication administration errors",
+        "unit": "count"
+      },
+      {
+        "key": "dosesAdministered",
+        "label": "Doses administered",
+        "unit": "count"
+      }
+    ]
+  },
+  {
+    "code": "NUR-05",
+    "section": "Nursing / MDS",
+    "name": "Fall Rate with Major Injury per 1,000 Resident Days",
+    "benchmark": {
+      "value": "Nursing SNF: Falls with Major Injury (3.5-4.0 per 1,000 days) — major-injury subset only; KPI tracks all falls community-wide",
+      "source": "CMS Quality Measures",
+      "basis": "Industry / CMS survey",
+      "threshold": {
+        "scored": true,
+        "direction": "lower",
+        "target": 4,
+        "note": "Falls with major injury 3.5-4.0 per 1,000 resident-days."
+      }
+    },
+    "source": "upload",
+    "intake": "report-guide",
+    "unit": "rate",
+    "formula": "(fallsWithMajorInjury / residentDays) * 1000",
+    "inputs": [
+      {
+        "key": "fallsWithMajorInjury",
+        "label": "Falls with major injury in period",
+        "unit": "count"
+      },
+      {
+        "key": "residentDays",
+        "label": "Resident-days",
+        "unit": "count"
+      }
+    ],
+    "reviewResolvedV83": true
+  },
+  {
+    "code": "NUR-08",
+    "section": "Nursing / MDS",
+    "name": "UTI Rate per 1,000 Resident Days",
+    "benchmark": {
+      "value": "Nursing SNF: UTI Rate (<5 per 1,000 resident days) — only the UTI subset benchmarked",
+      "source": "CMS; CDC NHSN",
+      "basis": "Industry / CMS survey",
+      "threshold": {
+        "scored": true,
+        "direction": "lower",
+        "target": 5,
+        "note": "UTI rate <5 per 1,000 resident-days."
+      }
+    },
+    "source": "upload",
+    "intake": "report-guide",
+    "unit": "rate",
+    "formula": "(utiCount / residentDays) * 1000",
+    "inputs": [
+      {
+        "key": "utiCount",
+        "label": "UTIs in period",
+        "unit": "count"
+      },
+      {
+        "key": "residentDays",
+        "label": "Resident-days",
+        "unit": "count"
+      }
+    ],
+    "reviewResolvedV83": true
+  },
+  {
+    "code": "NUR-09",
+    "section": "Nursing / MDS",
+    "name": "Elopement Incidents",
+    "benchmark": {
+      "value": "Benchmark = zero. Resident elopement is a never/sentinel event; cited by CMS under F689 (Free of Accident Hazards/Supervision/Devices). Any non-zero count is an actionable safety finding.",
+      "source": "CMS 42 CFR §483.25(d) — F689; sentinel-event standard",
+      "basis": "Safety / regulatory — CMS F689 (zero / never event)",
+      "threshold": {
+        "scored": true,
+        "direction": "zero",
+        "target": 0,
+        "note": "Elopement = never event; benchmark zero."
+      }
+    },
+    "source": "upload",
+    "intake": "report-guide",
+    "unit": "count",
+    "formula": "elopementCount",
+    "inputs": [
+      {
+        "key": "elopementCount",
+        "label": "Elopement incidents in period",
+        "unit": "count"
+      }
+    ],
+    "careLevels": [
+      "AL",
+      "MC"
+    ]
+  },
+  {
+    "code": "NURC-20",
+    "section": "Nursing / MDS",
+    "name": "PRN Psychotropic Medication Use Rate",
+    "benchmark": {
+      "value": "Nursing SNF: Antipsychotic Utilization (national 14-15%; top quartile <10%)",
+      "source": "CMS Quality Measures",
+      "basis": "Industry / CMS survey",
+      "threshold": {
+        "scored": true,
+        "direction": "lower",
+        "target": 15,
+        "note": "Antipsychotic 14-15%; top quartile <10%."
+      }
+    },
+    "source": "upload",
+    "intake": "report-guide",
+    "unit": "percent",
+    "formula": "(residentsOnPsychotropicPRN / totalResidents) * 100",
+    "inputs": [
+      {
+        "key": "residentsOnPsychotropicPRN",
+        "label": "Residents on PRN psychotropic",
+        "unit": "count"
+      },
+      {
+        "key": "totalResidents",
+        "label": "Total residents",
+        "unit": "count"
+      }
+    ],
+    "libraryCode": "NUR-10"
+  },
+  {
+    "code": "SNF-1.01",
+    "section": "Skilled Nursing Facility — Operational SNF KPIs",
+    "name": "Medicare / Skilled Census",
+    "benchmark": {
+      "value": "Payer-mix proxy — CLA 40th Annual SNF: Medicare FFS ≈7.8%, Medicaid ≈62.2%, Other incl. MA ≈30% of payer mix (skilled-mix proxy). Plante Moran publishes equivalent. Benchmarks the level, not the daily census series.",
+      "source": "CLA 40th Annual SNF (~11,700 CMS SNF cost reports, FYE 2024); Plante Moran SNF",
+      "basis": "Industry — CMS cost-report-derived",
+      "threshold": {
+        "scored": false,
+        "note": "Payer-mix descriptor, not a higher/lower performance target."
+      }
+    },
+    "source": "upload",
+    "intake": "report-guide",
+    "unit": "percent",
+    "formula": "(skilledDays / totalPatientDays) * 100",
+    "inputs": [
+      {
+        "key": "skilledDays",
+        "label": "Medicare/skilled patient-days",
+        "unit": "days"
+      },
+      {
+        "key": "totalPatientDays",
+        "label": "Total patient-days",
+        "unit": "days"
+      }
+    ]
+  },
+  {
+    "code": "NURC-27",
+    "section": "Nursing / Clinical",
+    "name": "PDPM Case Mix Index by Component",
+    "benchmark": {
+      "value": "MDS: PDPM Component Accuracy (>95% across all 5 components) — coding-accuracy angle, not the index value itself",
+      "source": "CMS PDPM guidelines",
+      "basis": "Industry / CMS survey",
+      "threshold": {
+        "scored": false,
+        "note": "Per-component CMI is own-baseline; benchmark angle is coding accuracy."
+      }
+    },
+    "source": "upload",
+    "intake": "report-guide",
+    "unit": "index",
+    "formula": "direct",
+    "inputs": [
+      {
+        "key": "cmiPT",
+        "label": "PDPM CMI — PT component",
+        "unit": "index"
+      },
+      {
+        "key": "cmiOT",
+        "label": "PDPM CMI — OT component",
+        "unit": "index"
+      },
+      {
+        "key": "cmiSLP",
+        "label": "PDPM CMI — SLP component",
+        "unit": "index"
+      },
+      {
+        "key": "cmiNursing",
+        "label": "PDPM CMI — Nursing component",
+        "unit": "index"
+      },
+      {
+        "key": "cmiNTA",
+        "label": "PDPM CMI — NTA component",
+        "unit": "index"
+      }
+    ],
+    "directEntry": true,
+    "note": "Per-component CMI (PT/OT/SLP/Nursing/NTA), direct from PDPM/MDS report. Values are own-baseline; the >95% accuracy benchmark applies only if an audited-vs-coded check is added.",
+    "reviewResolved": true,
+    "libraryCode": "SNF-1.02"
+  },
+  {
+    "code": "SNF-1.03",
+    "section": "Skilled Nursing Facility — Operational SNF KPIs",
+    "name": "Average Medicare Length of Stay",
+    "benchmark": {
+      "value": "Plante Moran SNF 2024: overall SNF LOS 144 days (all-payer), MA SNF LOS 44 days. Medicare-A ALOS derivable from CMS Medicare claims (MedPAR); MedPAC publishes nationally (Part A capped at 100 covered days). Use the Medicare-A FFS cut, not the all-payer 144.",
+      "source": "Plante Moran SNF (CMS cost reports + Medicare claims, FYE 2024); MedPAC (CMS Medicare FFS claims/MedPAR)",
+      "basis": "Industry + CMS-claims-derived",
+      "threshold": {
+        "scored": false,
+        "note": "ALOS context; no single 'good' target (payer-dependent)."
+      }
+    },
+    "source": "upload",
+    "intake": "report-guide",
+    "unit": "days",
+    "formula": "sumMedicareLOSDays / medicareDischarges",
+    "inputs": [
+      {
+        "key": "sumMedicareLOSDays",
+        "label": "Sum of Medicare LOS days",
+        "unit": "days"
+      },
+      {
+        "key": "medicareDischarges",
+        "label": "Medicare discharges",
+        "unit": "count"
+      }
+    ]
+  },
+  {
+    "code": "SNF-1.04",
+    "section": "Skilled Nursing Facility — Operational SNF KPIs",
+    "name": "Skilled Revenue per Patient Day",
+    "benchmark": {
+      "value": "SOSH 2025 and CLA 40th Annual SNF publish skilled revenue per patient day by payer (Medicare FFS / Medicare Advantage / Managed Care). Benchmark against the payer-mix-weighted SOSH/CLA figure; CPI toggle aligns to the analysis period.",
+      "source": "SOSH 2025; CLA 40th Annual SNF (skilled revenue per patient day, by payer) — CPI-adjusted",
+      "basis": "Industry — SOSH 2025 / CLA (dollar; CPI toggle)",
+      "threshold": {
+        "scored": false,
+        "note": "Compare to SOSH/CLA by payer; no single target."
+      }
+    },
+    "source": "upload",
+    "intake": "report-guide",
+    "unit": "dollar",
+    "formula": "skilledRevenue / skilledPatientDays",
+    "inputs": [
+      {
+        "key": "skilledRevenue",
+        "label": "Skilled revenue",
+        "unit": "dollar"
+      },
+      {
+        "key": "skilledPatientDays",
+        "label": "Skilled patient-days",
+        "unit": "days"
+      }
+    ],
+    "cpiAdjust": true
+  },
+  {
+    "code": "SNF-2.01",
+    "section": "Skilled Nursing Facility — CMS Domain 1: Health Inspection",
+    "name": "Standard Health Inspection — Deficiency Count, Scope, and Severity",
+    "benchmark": {
+      "value": "Nursing SNF: Survey Deficiencies (national avg 7-8 per survey; no severity above D; zero IJ)",
+      "source": "CMS Survey data",
+      "basis": "Industry / CMS survey"
+    },
+    "source": "cms",
+    "intake": "cms",
+    "unit": "rate",
+    "formula": null,
+    "inputs": [],
+    "cmsFetched": true
+  },
+  {
+    "code": "SNF-2.02",
+    "section": "Skilled Nursing Facility — CMS Domain 1: Health Inspection",
+    "name": "Complaint Survey — Deficiency Count, Scope, and Severity",
+    "benchmark": {
+      "value": "Nursing SNF: Survey Deficiencies — composite covers standard surveys; complaint-specific cut-points not separately published",
+      "source": "CMS Survey data",
+      "basis": "Industry / CMS survey"
+    },
+    "source": "cms",
+    "intake": "cms",
+    "unit": "rate",
+    "formula": null,
+    "inputs": [],
+    "cmsFetched": true
+  },
+  {
+    "code": "SNF-2.03",
+    "section": "Skilled Nursing Facility — CMS Domain 1: Health Inspection",
+    "name": "Infection Control Inspection — Deficiency Count, Scope, and Severity",
+    "benchmark": {
+      "value": "Nursing SNF: Survey Deficiencies — composite; F-880 cited as #1 deficiency-tag but separate threshold not benchmarked",
+      "source": "CMS Survey data",
+      "basis": "Industry / CMS survey"
+    },
+    "source": "cms",
+    "intake": "cms",
+    "unit": "rate",
+    "formula": null,
+    "inputs": [],
+    "cmsFetched": true
+  },
+  {
+    "code": "SNF-2.04",
+    "section": "Skilled Nursing Facility — CMS Domain 1: Health Inspection",
+    "name": "Life Safety Code Survey — Deficiency Count, Scope, and Severity",
+    "benchmark": {
+      "value": "Plant / Maintenance: Life Safety Compliance (100%) + Nursing SNF: Survey Deficiencies",
+      "source": "State/federal fire marshal; CMS; CMS Survey data",
+      "basis": "Industry / CMS survey"
+    },
+    "source": "cms",
+    "intake": "cms",
+    "unit": "rate",
+    "formula": null,
+    "inputs": [],
+    "cmsFetched": true
+  },
+  {
+    "code": "SNF-3.01",
+    "section": "Skilled Nursing Facility — CMS Domain 2: Staffing",
+    "name": "RN Hours per Resident Day (case-mix adjusted)",
+    "benchmark": {
+      "value": "Nursing SNF: Total Nursing HPPD (3.6-3.8 national avg) — composite includes RN/LPN/CNA, not RN-only",
+      "source": "CMS staffing requirements (Total Nursing HPRD)",
+      "basis": "Industry / CMS survey"
+    },
+    "source": "cms",
+    "intake": "cms",
+    "unit": "rate",
+    "formula": null,
+    "inputs": [],
+    "cmsFetched": true
+  },
+  {
+    "code": "SNF-3.02",
+    "section": "Skilled Nursing Facility — CMS Domain 2: Staffing",
+    "name": "Total Nurse Staffing Hours per Resident Day",
+    "benchmark": {
+      "value": "Nursing SNF: Total Nursing HPPD (CMS min 3.48; national avg 3.6-3.8)",
+      "source": "CMS",
+      "basis": "Industry / CMS survey"
+    },
+    "source": "cms",
+    "intake": "cms",
+    "unit": "rate",
+    "formula": null,
+    "inputs": [],
+    "cmsFetched": true
+  },
+  {
+    "code": "SNF-3.03",
+    "section": "Skilled Nursing Facility — CMS Domain 2: Staffing",
+    "name": "Total Nursing Staff Turnover (annualized, PBJ-derived)",
+    "benchmark": {
+      "value": "Human Resources: Staff Turnover — SNF National Avg (~53.9%) — HCS Annual Report 2024",
+      "source": "HCS Annual Report 2024",
+      "basis": "Industry / CMS survey"
+    },
+    "source": "cms",
+    "intake": "cms",
+    "unit": "rate",
+    "formula": null,
+    "inputs": [],
+    "cmsFetched": true
+  },
+  {
+    "code": "SNF-3.04",
+    "section": "Skilled Nursing Facility — CMS Domain 2: Staffing",
+    "name": "Administrator Turnover (12-month count)",
+    "benchmark": {
+      "value": "CMS Five-Star Staffing-rating input: administrator turnover from PBJ (90-day gap rule); cut points in Technical Users' Guide Table 3 / Appendix A2.",
+      "source": "CMS Five-Star Technical Users' Guide (April 2026)",
+      "basis": "CMS Five-Star — Staffing"
+    },
+    "source": "cms",
+    "intake": "cms",
+    "unit": "rate",
+    "formula": null,
+    "inputs": [],
+    "cmsFetched": true
+  },
+  {
+    "code": "SNF-3.05",
+    "section": "Skilled Nursing Facility — CMS Domain 2: Staffing",
+    "name": "Weekend Staffing Levels",
+    "benchmark": {
+      "value": "CMS Five-Star Staffing-rating input: 5-star ≈ weekend HPRD within ~10% of weekday; >25% gap suppresses Staffing star. Cut points in Table 3 / Appendix A2.",
+      "source": "CMS Five-Star Technical Users' Guide (April 2026)",
+      "basis": "CMS Five-Star — Staffing"
+    },
+    "source": "cms",
+    "intake": "cms",
+    "unit": "rate",
+    "formula": null,
+    "inputs": [],
+    "cmsFetched": true
+  },
+  {
+    "code": "SNF-4.01",
+    "section": "Skilled Nursing Facility — CMS Domain 3: Quality Measures, Long-Stay",
+    "name": "Percentage of Residents Whose Need for Help with ADLs Has Increased",
+    "benchmark": {
+      "value": "CMS Five-Star QM rating — risk-adjusted; national decile cut-point table (Technical Users' Guide Table 5 / Appendix A3; re-based at guide releases).",
+      "source": "CMS Five-Star Technical Users' Guide (April 2026); CMS Care Compare national avg",
+      "basis": "CMS Five-Star — QM decile cut-points"
+    },
+    "source": "cms",
+    "intake": "cms",
+    "unit": "rate",
+    "formula": null,
+    "inputs": [],
+    "cmsFetched": true
+  },
+  {
+    "code": "SNF-4.02",
+    "section": "Skilled Nursing Facility — CMS Domain 3: Quality Measures, Long-Stay",
+    "name": "Percentage of Residents Whose Ability to Walk Independently Worsened",
+    "benchmark": {
+      "value": "CMS Five-Star QM rating — risk-adjusted; national decile cut-point table (Technical Users' Guide Table 5 / Appendix A3).",
+      "source": "CMS Five-Star Technical Users' Guide (April 2026); CMS Care Compare national avg",
+      "basis": "CMS Five-Star — QM decile cut-points"
+    },
+    "source": "cms",
+    "intake": "cms",
+    "unit": "rate",
+    "formula": null,
+    "inputs": [],
+    "cmsFetched": true
+  },
+  {
+    "code": "SNF-4.03",
+    "section": "Skilled Nursing Facility — CMS Domain 3: Quality Measures, Long-Stay",
+    "name": "Percentage of Residents with Pressure Ulcers (Long-Stay)",
+    "benchmark": {
+      "value": "Nursing SNF: Pressure Ulcer Incidence (national 5-6%; Stage 2+ new-onset <2%)",
+      "source": "CMS Quality Measures",
+      "basis": "Industry / CMS survey"
+    },
+    "source": "cms",
+    "intake": "cms",
+    "unit": "rate",
+    "formula": null,
+    "inputs": [],
+    "cmsFetched": true
+  },
+  {
+    "code": "SNF-4.04",
+    "section": "Skilled Nursing Facility — CMS Domain 3: Quality Measures, Long-Stay",
+    "name": "Percentage of Residents Who Received an Antipsychotic Medication (Long-Stay)",
+    "benchmark": {
+      "value": "Nursing SNF: Antipsychotic Utilization (national 14-15%; top quartile <10%)",
+      "source": "CMS Quality Measures",
+      "basis": "Industry / CMS survey"
+    },
+    "source": "cms",
+    "intake": "cms",
+    "unit": "rate",
+    "formula": null,
+    "inputs": [],
+    "cmsFetched": true
+  },
+  {
+    "code": "SNF-4.05",
+    "section": "Skilled Nursing Facility — CMS Domain 3: Quality Measures, Long-Stay",
+    "name": "Percentage of Residents with a UTI (Long-Stay)",
+    "benchmark": {
+      "value": "Nursing SNF: UTI Rate (<5 per 1,000 resident days)",
+      "source": "CMS; CDC NHSN",
+      "basis": "Industry / CMS survey"
+    },
+    "source": "cms",
+    "intake": "cms",
+    "unit": "rate",
+    "formula": null,
+    "inputs": [],
+    "cmsFetched": true
+  },
+  {
+    "code": "SNF-4.06",
+    "section": "Skilled Nursing Facility — CMS Domain 3: Quality Measures, Long-Stay",
+    "name": "Percentage of Residents Who Have/Had a Catheter Inserted and Left in Their Bladder",
+    "benchmark": {
+      "value": "CMS Five-Star QM rating — risk-adjusted catheter measure; national decile cut-point table (Technical Users' Guide Table 5 / Appendix A3).",
+      "source": "CMS Five-Star Technical Users' Guide (April 2026); CMS Care Compare national avg",
+      "basis": "CMS Five-Star — QM decile cut-points"
+    },
+    "source": "cms",
+    "intake": "cms",
+    "unit": "rate",
+    "formula": null,
+    "inputs": [],
+    "cmsFetched": true
+  },
+  {
+    "code": "SNF-4.07",
+    "section": "Skilled Nursing Facility — CMS Domain 3: Quality Measures, Long-Stay",
+    "name": "Percentage of Residents Experiencing One or More Falls with Major Injury (Long-Stay)",
+    "benchmark": {
+      "value": "Nursing SNF: Falls with Major Injury (3.5-4.0 per 1,000 resident days)",
+      "source": "CMS Quality Measures",
+      "basis": "Industry / CMS survey"
+    },
+    "source": "cms",
+    "intake": "cms",
+    "unit": "rate",
+    "formula": null,
+    "inputs": [],
+    "cmsFetched": true
+  },
+  {
+    "code": "SNF-4.08",
+    "section": "Skilled Nursing Facility — CMS Domain 3: Quality Measures, Long-Stay",
+    "name": "Number of Hospitalizations per 1,000 Long-Stay Resident Days (claims-based)",
+    "benchmark": {
+      "value": "Nursing SNF: 30-Day Readmission Rate — short-stay scope; long-stay hospitalization not separately benchmarked",
+      "source": "CMS Quality Measures; MedPAC",
+      "basis": "Industry / CMS survey"
+    },
+    "source": "cms",
+    "intake": "cms",
+    "unit": "rate",
+    "formula": null,
+    "inputs": [],
+    "cmsFetched": true
+  },
+  {
+    "code": "SNF-4.09",
+    "section": "Skilled Nursing Facility — CMS Domain 3: Quality Measures, Long-Stay",
+    "name": "Number of Outpatient ED Visits per 1,000 Long-Stay Resident Days (claims-based)",
+    "benchmark": {
+      "value": "CMS Care Compare publicly-reported claims-based measure with national & state averages (long-stay outpatient ED visits / 1,000 resident days).",
+      "source": "CMS Care Compare (national/state averages)",
+      "basis": "CMS Care Compare — national avg"
+    },
+    "source": "cms",
+    "intake": "cms",
+    "unit": "rate",
+    "formula": null,
+    "inputs": [],
+    "cmsFetched": true
+  },
+  {
+    "code": "SNF-5.01",
+    "section": "Skilled Nursing Facility — CMS Domain 4: Quality Measures, Short-Stay",
+    "name": "Percentage of Short-Stay Residents Who Were Rehospitalized",
+    "benchmark": {
+      "value": "Nursing SNF: 30-Day Readmission Rate (national 22-24%, top performers <18%)",
+      "source": "CMS Quality Measures; MedPAC",
+      "basis": "Industry / CMS survey"
+    },
+    "source": "cms",
+    "intake": "cms",
+    "unit": "rate",
+    "formula": null,
+    "inputs": [],
+    "cmsFetched": true
+  },
+  {
+    "code": "SNF-5.02",
+    "section": "Skilled Nursing Facility — CMS Domain 4: Quality Measures, Short-Stay",
+    "name": "Percentage of Short-Stay Residents Who Had an Outpatient ED Visit",
+    "benchmark": {
+      "value": "CMS Care Compare publicly-reported claims-based measure with national & state averages (short-stay outpatient ED visit %).",
+      "source": "CMS Care Compare (national/state averages)",
+      "basis": "CMS Care Compare — national avg"
+    },
+    "source": "cms",
+    "intake": "cms",
+    "unit": "rate",
+    "formula": null,
+    "inputs": [],
+    "cmsFetched": true
+  },
+  {
+    "code": "SNF-5.03",
+    "section": "Skilled Nursing Facility — CMS Domain 4: Quality Measures, Short-Stay",
+    "name": "Percentage of Short-Stay Residents Who Newly Received an Antipsychotic Medication",
+    "benchmark": {
+      "value": "Nursing SNF: Antipsychotic Utilization (long-stay scope; short-stay new-initiation cut-points differ)",
+      "source": "CMS Quality Measures",
+      "basis": "Industry / CMS survey"
+    },
+    "source": "cms",
+    "intake": "cms",
+    "unit": "rate",
+    "formula": null,
+    "inputs": [],
+    "cmsFetched": true
+  },
+  {
+    "code": "SNF-5.04",
+    "section": "Skilled Nursing Facility — CMS Domain 4: Quality Measures, Short-Stay",
+    "name": "Percentage of Short-Stay Residents Who Self-Report Moderate to Severe Pain",
+    "benchmark": {
+      "value": "CMS Care Compare publicly-reported MDS measure (short-stay self-reported moderate/severe pain); national/state averages; point-scored in QM rating.",
+      "source": "CMS Care Compare; CMS Five-Star Technical Users' Guide (April 2026)",
+      "basis": "CMS Five-Star / Care Compare"
+    },
+    "source": "cms",
+    "intake": "cms",
+    "unit": "rate",
+    "formula": null,
+    "inputs": [],
+    "cmsFetched": true
+  },
+  {
+    "code": "SNF-5.05",
+    "section": "Skilled Nursing Facility — CMS Domain 4: Quality Measures, Short-Stay",
+    "name": "Percentage of Short-Stay Residents with Pressure Ulcers That Are New or Worsened",
+    "benchmark": {
+      "value": "Nursing SNF: Pressure Ulcer Incidence (long-stay scope; short-stay measure has different denominator)",
+      "source": "CMS Quality Measures",
+      "basis": "Industry / CMS survey"
+    },
+    "source": "cms",
+    "intake": "cms",
+    "unit": "rate",
+    "formula": null,
+    "inputs": [],
+    "cmsFetched": true
+  },
+  {
+    "code": "SNF-5.06",
+    "section": "Skilled Nursing Facility — CMS Domain 4: Quality Measures, Short-Stay",
+    "name": "Percentage of Short-Stay Residents Who Were Discharged to the Community",
+    "benchmark": {
+      "value": "CMS Care Compare publicly-reported claims-based measure (short-stay discharge to community); national/state averages; point-scored in QM rating.",
+      "source": "CMS Care Compare; CMS Five-Star Technical Users' Guide (April 2026)",
+      "basis": "CMS Five-Star / Care Compare"
+    },
+    "source": "cms",
+    "intake": "cms",
+    "unit": "rate",
+    "formula": null,
+    "inputs": [],
+    "cmsFetched": true
+  },
+  {
+    "code": "SNF-5.07",
+    "section": "Skilled Nursing Facility — CMS Domain 4: Quality Measures, Short-Stay",
+    "name": "Discharge Function Score (Short-Stay)",
+    "benchmark": {
+      "value": "CMS Five-Star QM rating — Discharge Function (risk-adjusted, replaced 'Made Improvements in Function' Jan 2025); decile cut-point table in Technical Users' Guide.",
+      "source": "CMS Five-Star Technical Users' Guide (April 2026); CMS Care Compare national avg",
+      "basis": "CMS Five-Star — QM decile cut-points"
+    },
+    "source": "cms",
+    "intake": "cms",
+    "unit": "rate",
+    "formula": null,
+    "inputs": [],
+    "cmsFetched": true
+  },
+  {
+    "code": "SNF-6.01",
+    "section": "Skilled Nursing Facility — CMS Five-Star Composite",
+    "name": "Five-Star Overall Quality Rating",
+    "benchmark": {
+      "value": "Nursing SNF: CMS Star Rating Target (4-5 stars; national avg 3) — CMS Care Compare",
+      "source": "CMS Care Compare; CMS",
+      "basis": "Industry / CMS survey"
+    },
+    "source": "cms",
+    "intake": "cms",
+    "unit": "score",
+    "formula": null,
+    "inputs": [],
+    "cmsFetched": true
+  },
+  {
+    "code": "FIN-01",
+    "section": "Finance / Accounting",
+    "name": "Days Cash on Hand",
+    "benchmark": {
+      "value": "Finance: Days Cash on Hand (healthy 180+; vulnerable <90)",
+      "source": "Bond rating agencies",
+      "basis": "Industry / CMS survey",
+      "threshold": {
+        "scored": true,
+        "direction": "higher",
+        "target": 180,
+        "watchLo": 90,
+        "note": "Days Cash healthy 180+, vulnerable <90."
+      }
+    },
+    "source": "upload",
+    "intake": "report-guide",
+    "unit": "days",
+    "formula": "unrestrictedCash / (annualOperatingExpenses / 365)",
+    "inputs": [
+      {
+        "key": "unrestrictedCash",
+        "label": "Unrestricted cash & equivalents",
+        "unit": "dollar"
+      },
+      {
+        "key": "annualOperatingExpenses",
+        "label": "Annual operating expenses (cash)",
+        "unit": "dollar"
+      }
+    ]
+  },
+  {
+    "code": "FIN-02",
+    "section": "Finance / Accounting",
+    "name": "Operating Margin",
+    "benchmark": {
+      "value": "Operations: Operating Margin (For-Profit) — IL 31.2%, AL 24.5%, MC 21.7%, CCRC 22.8%",
+      "source": "SOSH 2025, Table 3.27",
+      "basis": "Industry / CMS survey",
+      "threshold": {
+        "scored": true,
+        "direction": "higher",
+        "target": 24.5,
+        "byCareLevel": {
+          "IL": 31.2,
+          "AL": 24.5,
+          "MC": 21.7,
+          "CCRC": 22.8
+        },
+        "note": "Operating margin (for-profit)."
+      }
+    },
+    "source": "upload",
+    "intake": "report-guide",
+    "unit": "percent",
+    "formula": "(operatingIncome / totalRevenue) * 100",
+    "inputs": [
+      {
+        "key": "operatingIncome",
+        "label": "Operating income",
+        "unit": "dollar"
+      },
+      {
+        "key": "totalRevenue",
+        "label": "Total operating revenue",
+        "unit": "dollar"
+      }
+    ]
+  },
+  {
+    "code": "FIN-03",
+    "section": "Finance / Accounting",
+    "name": "Net Operating Income Growth (Same-Store)",
+    "benchmark": {
+      "value": "Finance: NOI Growth (Same-Store) (+9.0% all communities 2024 vs 2023) — growth rate, not absolute level",
+      "source": "SOSH 2025, Table 4.1",
+      "basis": "Industry / CMS survey",
+      "threshold": {
+        "scored": true,
+        "direction": "higher",
+        "target": 9,
+        "note": "NOI growth same-store +9% (2024 vs 2023)."
+      }
+    },
+    "source": "upload",
+    "intake": "report-guide",
+    "unit": "percent",
+    "formula": "(((totalRevenue - operatingExpenses) - priorNOI) / priorNOI) * 100",
+    "inputs": [
+      {
+        "key": "totalRevenue",
+        "label": "Total operating revenue",
+        "unit": "dollar"
+      },
+      {
+        "key": "operatingExpenses",
+        "label": "Total operating expenses",
+        "unit": "dollar"
+      },
+      {
+        "key": "priorNOI",
+        "label": "Prior-period net operating income",
+        "unit": "dollar"
+      }
+    ],
+    "reviewResolvedV83": true
+  },
+  {
+    "code": "FIN-05",
+    "section": "Finance / Accounting",
+    "name": "Average Revenue per Occupied Unit by Care Level",
+    "benchmark": {
+      "value": "SOSH 2025 publishes total revenue per occupied unit by care segment (IL / AL / MC / CCRC). Benchmark the community's revenue/occupied-unit against the SOSH segment median/quartiles; apply the tool's CPI inflation toggle to align prior-year SOSH dollars to the analysis period.",
+      "source": "SOSH 2025 (revenue per occupied unit, by care level) — CPI-adjusted",
+      "basis": "Industry — SOSH 2025 (dollar; CPI toggle)",
+      "threshold": {
+        "scored": false,
+        "note": "SOSH revenue/occupied-unit by segment; no numeric target in benchmark text — enter target."
+      }
+    },
+    "source": "upload",
+    "intake": "report-guide",
+    "unit": "dollar",
+    "formula": "totalRevenue / occupiedUnits",
+    "inputs": [
+      {
+        "key": "totalRevenue",
+        "label": "Total revenue (by care level)",
+        "unit": "dollar"
+      },
+      {
+        "key": "occupiedUnits",
+        "label": "Occupied units (by care level)",
+        "unit": "count"
+      }
+    ],
+    "cpiAdjust": true
+  },
+  {
+    "code": "FIN-06",
+    "section": "Finance / Accounting",
+    "name": "Accounts Receivable Aging (% > 90 days)",
+    "benchmark": {
+      "value": "Finance: AR Aging — Private Pay (<60 days)",
+      "source": "Industry best practices",
+      "basis": "Industry / CMS survey",
+      "threshold": {
+        "scored": true,
+        "direction": "lower",
+        "target": 15,
+        "note": "HFMA high-performer <15% of A/R in 90+ bucket; general healthy 18-22%; no senior-living-specific figure published."
+      }
+    },
+    "source": "upload",
+    "intake": "report-guide",
+    "unit": "percent",
+    "formula": "(arOver90 / totalAR) * 100",
+    "inputs": [
+      {
+        "key": "arOver90",
+        "label": "A/R aged > 90 days",
+        "unit": "dollar"
+      },
+      {
+        "key": "totalAR",
+        "label": "Total A/R",
+        "unit": "dollar"
+      }
+    ],
+    "reviewResolvedV83": true
+  },
+  {
+    "code": "FIN-07",
+    "section": "Finance / Accounting",
+    "name": "Labor Cost as Percentage of Revenue",
+    "benchmark": {
+      "value": "Operations: Labor % of Revenue (IL 28%, AL 39%, AL/MC 46%, CCRC 40%) + Finance: Labor % of Total OpEx",
+      "source": "SOSH 2025, Tables 3.1-3.7; SOSH 2025, Table 4.1",
+      "basis": "Industry / CMS survey",
+      "threshold": {
+        "scored": true,
+        "direction": "lower",
+        "target": 39,
+        "byCareLevel": {
+          "IL": 28,
+          "AL": 39,
+          "AL/MC": 46,
+          "CCRC": 40
+        },
+        "note": "Labor % of revenue."
+      }
+    },
+    "source": "upload",
+    "intake": "report-guide",
+    "unit": "percent",
+    "formula": "(laborCost / totalRevenue) * 100",
+    "inputs": [
+      {
+        "key": "laborCost",
+        "label": "Total labor cost (wages+benefits+agency)",
+        "unit": "dollar"
+      },
+      {
+        "key": "totalRevenue",
+        "label": "Total operating revenue",
+        "unit": "dollar"
+      }
+    ]
+  },
+  {
+    "code": "FINA-16",
+    "section": "Finance / Accounting",
+    "name": "Payer Mix Percentage",
+    "benchmark": {
+      "value": "SNF payer mix — CLA 40th Annual SNF: Medicaid ≈62.2%, Medicare FFS ≈7.8%, Other incl. MA ≈30% (CMS cost reports). SOSH 2025 & NIC MAP publish payer mix by setting. AL/IL predominantly private-pay in market-rate samples.",
+      "source": "CLA 40th Annual SNF (~11,700 CMS cost reports); SOSH 2025; NIC MAP",
+      "basis": "Industry — CLA 40th SNF / SOSH 2025 / NIC MAP",
+      "threshold": {
+        "scored": false,
+        "note": "Distribution — payer-day shares by care level."
+      }
+    },
+    "source": "upload",
+    "intake": "report-guide",
+    "unit": "distribution",
+    "formula": "distribution",
+    "inputs": [
+      {
+        "key": "daysByPayer",
+        "label": "Patient/resident-days keyed by payer",
+        "unit": "days"
+      },
+      {
+        "key": "residentDays",
+        "label": "Resident-days in period",
+        "unit": "count"
+      }
+    ],
+    "note": "Payer-day shares (% of resident-days per payer type) vs CLA/SOSH/NIC payer mix. Adopted from Senior Living KPI Library (Final GAPS) FINA-16.",
+    "reviewResolved": true,
+    "libraryCode": "FIN-08"
+  },
+  {
+    "code": "FIN-09",
+    "section": "Finance / Accounting",
+    "name": "Department Expense Variance vs. Budget",
+    "benchmark": {
+      "value": "Finance: Revenue Growth vs Expense Growth — comparison principle but department-level variance not separately benchmarked",
+      "source": "SOSH 2025, Table 4.1",
+      "basis": "Industry / CMS survey",
+      "threshold": {
+        "scored": true,
+        "direction": "bandabs",
+        "target": 5,
+        "note": "No industry benchmark; practical ±5% dept variance."
+      }
+    },
+    "source": "upload",
+    "intake": "report-guide",
+    "unit": "percent",
+    "formula": "((actualExpense - budgetExpense) / budgetExpense) * 100",
+    "inputs": [
+      {
+        "key": "actualExpense",
+        "label": "Actual departmental expense",
+        "unit": "dollar"
+      },
+      {
+        "key": "budgetExpense",
+        "label": "Budgeted departmental expense",
+        "unit": "dollar"
+      }
+    ]
+  },
+  {
+    "code": "FIN-10",
+    "section": "Finance / Accounting",
+    "name": "Bad Debt and Write-Off Rate",
+    "benchmark": {
+      "value": "Finance: AR Aging — Private Pay — leading indicator; write-off rate not separately benchmarked",
+      "source": "Industry best practices",
+      "basis": "Industry / CMS survey",
+      "threshold": {
+        "scored": false,
+        "note": "Write-off rate not separately benchmarked."
+      }
+    },
+    "source": "upload",
+    "intake": "report-guide",
+    "unit": "percent",
+    "formula": "(writeOffs / totalRevenue) * 100",
+    "inputs": [
+      {
+        "key": "writeOffs",
+        "label": "Bad debt + write-offs",
+        "unit": "dollar"
+      },
+      {
+        "key": "totalRevenue",
+        "label": "Total operating revenue",
+        "unit": "dollar"
+      }
+    ]
+  },
+  {
+    "code": "HRP-02",
+    "section": "Human Resources",
+    "name": "Total Turnover Rate",
+    "benchmark": {
+      "value": "HR: Staff Turnover — CNA (~40%) + AL Resident Assistants (~44%) + SNF (~53.9%) — HCS Annual Report 2024",
+      "source": "HCS Annual Report 2024",
+      "basis": "Industry / CMS survey",
+      "threshold": {
+        "scored": true,
+        "direction": "lower",
+        "target": 44,
+        "note": "Turnover CNA ~40 / AL RA ~44 / SNF ~53.9%."
+      }
+    },
+    "source": "upload",
+    "intake": "report-guide",
+    "unit": "percent",
+    "formula": "(separations / avgHeadcount) * 100",
+    "inputs": [
+      {
+        "key": "separations",
+        "label": "Separations (vol+invol) in period",
+        "unit": "count"
+      },
+      {
+        "key": "avgHeadcount",
+        "label": "Average headcount",
+        "unit": "count"
+      }
+    ],
+    "libraryCode": "HR-01"
+  },
+  {
+    "code": "HRP-03",
+    "section": "Human Resources",
+    "name": "90-Day New Hire Retention Rate",
+    "benchmark": {
+      "value": "HR: 90-Day Retention (>80%) — Activated Insights Benchmarking",
+      "source": "Activated Insights",
+      "basis": "Industry / CMS survey",
+      "threshold": {
+        "scored": true,
+        "direction": "higher",
+        "target": 80,
+        "note": "90-day retention >80%."
+      }
+    },
+    "source": "upload",
+    "intake": "report-guide",
+    "unit": "percent",
+    "formula": "(newHiresRetained90 / newHires) * 100",
+    "inputs": [
+      {
+        "key": "newHires",
+        "label": "New hires in cohort",
+        "unit": "count"
+      },
+      {
+        "key": "newHiresRetained90",
+        "label": "Retained at 90 days",
+        "unit": "count"
+      }
+    ],
+    "libraryCode": "HR-02"
+  },
+  {
+    "code": "HRP-04",
+    "section": "Human Resources",
+    "name": "Open Position Vacancy Rate",
+    "benchmark": {
+      "value": "HR: Vacancy Rate (<5% of approved positions)",
+      "source": "Industry best practices",
+      "basis": "Industry / CMS survey",
+      "threshold": {
+        "scored": true,
+        "direction": "lower",
+        "target": 5,
+        "note": "Vacancy <5%."
+      }
+    },
+    "source": "upload",
+    "intake": "report-guide",
+    "unit": "percent",
+    "formula": "(openPositions / approvedPositions) * 100",
+    "inputs": [
+      {
+        "key": "openPositions",
+        "label": "Open/vacant positions",
+        "unit": "count"
+      },
+      {
+        "key": "approvedPositions",
+        "label": "Approved positions",
+        "unit": "count"
+      }
+    ],
+    "libraryCode": "HR-03"
+  },
+  {
+    "code": "HRP-05",
+    "section": "Human Resources",
+    "name": "Time to Fill",
+    "benchmark": {
+      "value": "HR: Time to Fill — Clinical Roles (30-45 days; flag >60 days)",
+      "source": "Industry best practices",
+      "basis": "Industry / CMS survey",
+      "threshold": {
+        "scored": true,
+        "direction": "lower",
+        "target": 45,
+        "lo": 30,
+        "hi": 45,
+        "flagAbove": 60,
+        "note": "Time to fill clinical 30-45 days; flag >60."
+      }
+    },
+    "source": "upload",
+    "intake": "report-guide",
+    "unit": "days",
+    "formula": "sumDaysToFill / positionsFilled",
+    "inputs": [
+      {
+        "key": "sumDaysToFill",
+        "label": "Sum of days-to-fill",
+        "unit": "days"
+      },
+      {
+        "key": "positionsFilled",
+        "label": "Positions filled",
+        "unit": "count"
+      }
+    ],
+    "libraryCode": "HR-04"
+  },
+  {
+    "code": "HR-05",
+    "section": "Human Resources",
+    "name": "Agency and Contract Labor Utilization Rate",
+    "benchmark": {
+      "value": "HR: Agency % of Total Hours (<5%) + Operations: Agency Spend % of Labor (<5%)",
+      "source": "Industry best practices",
+      "basis": "Industry / CMS survey",
+      "threshold": {
+        "scored": true,
+        "direction": "lower",
+        "target": 5,
+        "note": "Agency <5% of hours."
+      }
+    },
+    "source": "upload",
+    "intake": "report-guide",
+    "unit": "percent",
+    "formula": "(agencyHours / totalHours) * 100",
+    "inputs": [
+      {
+        "key": "agencyHours",
+        "label": "Agency/contract labor hours",
+        "unit": "hours"
+      },
+      {
+        "key": "totalHours",
+        "label": "Total worked hours",
+        "unit": "hours"
+      }
+    ]
+  },
+  {
+    "code": "HRP-06",
+    "section": "Human Resources",
+    "name": "Overtime Hours as % of Total Hours",
+    "benchmark": {
+      "value": "HR: Overtime % of Total Hours (<5%)",
+      "source": "Industry best practices",
+      "basis": "Industry / CMS survey",
+      "threshold": {
+        "scored": true,
+        "direction": "lower",
+        "target": 5,
+        "note": "Overtime <5%."
+      }
+    },
+    "source": "upload",
+    "intake": "report-guide",
+    "unit": "percent",
+    "formula": "(overtimeHours / totalHours) * 100",
+    "inputs": [
+      {
+        "key": "overtimeHours",
+        "label": "Overtime hours",
+        "unit": "hours"
+      },
+      {
+        "key": "totalHours",
+        "label": "Total worked hours",
+        "unit": "hours"
+      }
+    ],
+    "libraryCode": "HR-06"
+  },
+  {
+    "code": "HR-07",
+    "section": "Human Resources",
+    "name": "Absenteeism and Call-Off Rate",
+    "benchmark": {
+      "value": "HR: Absenteeism Rate (<3-4% unscheduled absences)",
+      "source": "Industry best practices",
+      "basis": "Industry / CMS survey",
+      "threshold": {
+        "scored": true,
+        "direction": "lower",
+        "target": 4,
+        "note": "Absenteeism <3-4%."
+      }
+    },
+    "source": "upload",
+    "intake": "report-guide",
+    "unit": "percent",
+    "formula": "(unscheduledAbsenceHours / scheduledHours) * 100",
+    "inputs": [
+      {
+        "key": "unscheduledAbsenceHours",
+        "label": "Unscheduled absence/call-off hours",
+        "unit": "hours"
+      },
+      {
+        "key": "scheduledHours",
+        "label": "Scheduled hours",
+        "unit": "hours"
+      }
+    ]
+  },
+  {
+    "code": "HR-08",
+    "section": "Human Resources",
+    "name": "Workers' Compensation Claim Frequency Rate",
+    "benchmark": {
+      "value": "HR: Workers Comp % of Wages (avg 2.2%; range 0.1-13.1%) — cost ratio, not claim frequency",
+      "source": "SOSH 2025, Tables 3.20-3.21",
+      "basis": "Industry / CMS survey",
+      "threshold": {
+        "scored": true,
+        "direction": "lower",
+        "target": 2.2,
+        "note": "WC % of wages avg 2.2% (range 0.1-13.1)."
+      }
+    },
+    "source": "upload",
+    "intake": "report-guide",
+    "unit": "percent",
+    "formula": "(wcCost / grossWages) * 100",
+    "inputs": [
+      {
+        "key": "wcCost",
+        "label": "Workers' compensation cost in period",
+        "unit": "dollar"
+      },
+      {
+        "key": "grossWages",
+        "label": "Gross wages in period",
+        "unit": "dollar"
+      }
+    ],
+    "measureAs": "Workers' Comp Cost as % of Wages",
+    "note": "Measured as WC cost % of wages to match the % of wages benchmark (avg 2.2%); matrix KPI title left unchanged.",
+    "reviewResolved": true
+  },
+  {
+    "code": "HR-09",
+    "section": "Human Resources",
+    "name": "Employee Engagement Score",
+    "benchmark": {
+      "value": "Holleran Employee Engagement & Satisfaction National Benchmark (part of >160K-survey benchmark; Choice Award = >85th percentile). Activated Insights (Great Place to Work senior living) Trust Index / engagement benchmarks.",
+      "source": "Holleran Employee Engagement Benchmark; Activated Insights (GPTW senior living)",
+      "basis": "Industry — Holleran / Activated Insights",
+      "threshold": {
+        "scored": false,
+        "note": "Holleran engagement index — scale-dependent."
+      }
+    },
+    "source": "manual",
+    "intake": "manual",
+    "unit": "score",
+    "formula": "direct",
+    "inputs": [
+      {
+        "key": "engagementScore",
+        "label": "Employee engagement & satisfaction score",
+        "unit": "score"
+      }
+    ],
+    "directEntry": true,
+    "redFlag": {
+      "pair": "employee",
+      "with": [
+        "HR-09"
+      ],
+      "rule": "Fires only if the operator measures NEITHER employee satisfaction NOR engagement (HR-09 carries both)."
+    }
+  },
+  {
+    "code": "LEAT-01",
+    "section": "Learning / Training / LMS",
+    "name": "Mandatory Training Completion Rate",
+    "benchmark": {
+      "value": "HR: Training Completion Rate (100% on-time for required/regulatory)",
+      "source": "Regulatory requirement",
+      "basis": "Industry / CMS survey",
+      "threshold": {
+        "scored": true,
+        "direction": "higher",
+        "target": 100,
+        "note": "Training completion 100% on-time."
+      }
+    },
+    "source": "upload",
+    "intake": "report-guide",
+    "unit": "percent",
+    "formula": "(trainingsCompleted / trainingsRequired) * 100",
+    "inputs": [
+      {
+        "key": "trainingsCompleted",
+        "label": "Mandatory trainings completed",
+        "unit": "count"
+      },
+      {
+        "key": "trainingsRequired",
+        "label": "Mandatory trainings required",
+        "unit": "count"
+      }
+    ],
+    "libraryCode": "HR-10"
+  },
+  {
+    "code": "PLT-01",
+    "section": "Plant / Maintenance",
+    "name": "Work Order Completion Rate",
+    "benchmark": {
+      "value": "Plant: Work Order Completion Time (Routine 48hrs, Urgent 4hrs, Emergency Immediate) — time-based, not rate",
+      "source": "Industry best practices",
+      "basis": "Industry / CMS survey",
+      "threshold": {
+        "scored": true,
+        "direction": "higher",
+        "target": 90,
+        "note": "Industry expresses time windows; 90% on-time practical."
+      }
+    },
+    "source": "upload",
+    "intake": "report-guide",
+    "unit": "percent",
+    "formula": "(workOrdersCompletedOnTime / workOrdersTotal) * 100",
+    "inputs": [
+      {
+        "key": "workOrdersTotal",
+        "label": "Work orders in period",
+        "unit": "count"
+      },
+      {
+        "key": "workOrdersCompletedOnTime",
+        "label": "Completed within standard",
+        "unit": "count"
+      }
+    ]
+  },
+  {
+    "code": "PLT-02",
+    "section": "Plant / Maintenance",
+    "name": "Average Age of Open Work Order Backlog",
+    "benchmark": {
+      "value": "Facilities-management benchmark: healthy backlog = 2-4 weeks of available technician labor; <10% of open work orders past due; work orders aging past 60 days = deprioritized/blocked; review at 90 days.",
+      "source": "IFMA / BOMA facilities benchmarks; ASHE O&M Benchmarks for Health Care Facilities",
+      "basis": "Industry FM — IFMA/BOMA / ASHE O&M",
+      "threshold": {
+        "scored": true,
+        "direction": "lower",
+        "target": 14,
+        "note": "Backlog 2-4 wks; <10 days excellent."
+      }
+    },
+    "source": "upload",
+    "intake": "report-guide",
+    "unit": "days",
+    "formula": "sumOpenWODays / openWOCount",
+    "inputs": [
+      {
+        "key": "sumOpenWODays",
+        "label": "Sum of age (days) of open work orders",
+        "unit": "days"
+      },
+      {
+        "key": "openWOCount",
+        "label": "Open work orders",
+        "unit": "count"
+      }
+    ]
+  },
+  {
+    "code": "PLT-03",
+    "section": "Plant / Maintenance",
+    "name": "Preventive Maintenance Completion Rate",
+    "benchmark": {
+      "value": "Plant: PM Compliance Rate (>90% on-time)",
+      "source": "Industry best practices",
+      "basis": "Industry / CMS survey",
+      "threshold": {
+        "scored": true,
+        "direction": "higher",
+        "target": 90,
+        "note": "PM compliance >90%."
+      }
+    },
+    "source": "upload",
+    "intake": "report-guide",
+    "unit": "percent",
+    "formula": "(pmCompletedOnTime / pmScheduled) * 100",
+    "inputs": [
+      {
+        "key": "pmScheduled",
+        "label": "Preventive-maintenance tasks scheduled",
+        "unit": "count"
+      },
+      {
+        "key": "pmCompletedOnTime",
+        "label": "Completed on schedule",
+        "unit": "count"
+      }
+    ]
+  },
+  {
+    "code": "PLT-04",
+    "section": "Plant / Maintenance",
+    "name": "Life Safety System Inspection Compliance Rate",
+    "benchmark": {
+      "value": "Plant: Life Safety Compliance (100%) — state/federal fire marshal; CMS",
+      "source": "State/federal fire marshal; CMS",
+      "basis": "Industry / CMS survey",
+      "threshold": {
+        "scored": true,
+        "direction": "higher",
+        "target": 100,
+        "note": "Life safety 100%."
+      }
+    },
+    "source": "upload",
+    "intake": "report-guide",
+    "unit": "percent",
+    "formula": "(lifeSafetyCurrent / lifeSafetyRequired) * 100",
+    "inputs": [
+      {
+        "key": "lifeSafetyRequired",
+        "label": "Life-safety inspections required",
+        "unit": "count"
+      },
+      {
+        "key": "lifeSafetyCurrent",
+        "label": "Inspections current/passed",
+        "unit": "count"
+      }
+    ]
+  },
+  {
+    "code": "PLT-06",
+    "section": "Plant / Maintenance",
+    "name": "Average Age of Plant",
+    "benchmark": {
+      "value": "Standard CARF capital-structure ratio (accumulated depreciation ÷ depreciation expense, in years) with published quartile medians for CCRCs/LPCs. Senior-living median typically ~10-12 yrs; rising = deferred capital reinvestment / credit concern.",
+      "source": "CARF Financial Ratios & Trend Analysis 2025 (CARF/Ziegler/Baker Tilly); Ziegler ZCS&A",
+      "basis": "Industry — CARF Financial Ratios (Ziegler/Baker Tilly)",
+      "threshold": {
+        "scored": false,
+        "note": "CARF capital ratio; lower=newer; no single threshold."
+      }
+    },
+    "source": "upload",
+    "intake": "report-guide",
+    "unit": "ratio",
+    "formula": "accumulatedDepreciation / annualDepreciationExpense",
+    "inputs": [
+      {
+        "key": "accumulatedDepreciation",
+        "label": "Accumulated depreciation (plant)",
+        "unit": "dollar"
+      },
+      {
+        "key": "annualDepreciationExpense",
+        "label": "Annual depreciation expense",
+        "unit": "dollar"
+      }
+    ]
+  },
+  {
+    "code": "PLT-07",
+    "section": "Plant / Maintenance",
+    "name": "Energy Consumption Trend",
+    "benchmark": {
+      "value": "EPA ENERGY STAR Score for Senior Living Communities (1-100; 50 = median, ≥75 = certification / top quartile). Portfolio Manager Senior Care DataTrends median site EUI ≈ 214 kBtu/ft² (5th pct 103, 95th pct 433). Trend target = weather-normalized YoY EUI reduction.",
+      "source": "EPA ENERGY STAR Portfolio Manager — Senior Care Communities (DataTrends)",
+      "basis": "Industry — EPA ENERGY STAR (Portfolio Manager)",
+      "threshold": {
+        "scored": true,
+        "direction": "lower",
+        "target": 214,
+        "note": "EUI vs ENERGY STAR senior-living median ~214 kBtu/ft²."
+      }
+    },
+    "source": "upload",
+    "intake": "report-guide",
+    "unit": "ratio",
+    "formula": "energyUsageCurrent / grossSqFt",
+    "inputs": [
+      {
+        "key": "energyUsageCurrent",
+        "label": "Total site energy, current period (kBtu)",
+        "unit": "kBtu"
+      },
+      {
+        "key": "energyUsagePrior",
+        "label": "Total site energy, prior period (kBtu)",
+        "unit": "kBtu"
+      },
+      {
+        "key": "grossSqFt",
+        "label": "Gross building area",
+        "unit": "sqft"
+      }
+    ],
+    "companion": "yoyChange = ((energyUsageCurrent - energyUsagePrior) / energyUsagePrior) * 100 (%)",
+    "note": "Benchmarked = EUI (energy/ft2) vs ENERGY STAR median ~214 kBtu/ft2; YoY % change shown as the trend.",
+    "reviewResolved": true
+  },
+  {
+    "code": "PLT-09",
+    "section": "Plant / Maintenance",
+    "name": "Vehicle Preventive Maintenance Compliance Rate",
+    "benchmark": {
+      "value": "Plant: PM Compliance Rate (>90%) — building-PM scope; vehicle-specific not separately benchmarked",
+      "source": "Industry best practices",
+      "basis": "Industry / CMS survey",
+      "threshold": {
+        "scored": true,
+        "direction": "higher",
+        "target": 90,
+        "note": "Building-PM >90% proxy."
+      }
+    },
+    "source": "upload",
+    "intake": "report-guide",
+    "unit": "percent",
+    "formula": "(vehiclePMCompleted / vehiclePMScheduled) * 100",
+    "inputs": [
+      {
+        "key": "vehiclePMScheduled",
+        "label": "Vehicle PM tasks scheduled",
+        "unit": "count"
+      },
+      {
+        "key": "vehiclePMCompleted",
+        "label": "Completed on schedule",
+        "unit": "count"
+      }
+    ]
+  },
+  {
+    "code": "LE-01",
+    "section": "Life Enrichment",
+    "name": "Overall Activity Participation Rate",
+    "benchmark": {
+      "value": "Life Enrichment: Weekly Participation Rate (>80%) — LeadingAge",
+      "source": "LeadingAge",
+      "basis": "Industry / CMS survey",
+      "threshold": {
+        "scored": true,
+        "direction": "higher",
+        "target": 80,
+        "note": "Weekly participation >80%."
+      }
+    },
+    "source": "manual",
+    "intake": "manual",
+    "unit": "percent",
+    "formula": "(participatingResidents / totalResidents) * 100",
+    "inputs": [
+      {
+        "key": "participatingResidents",
+        "label": "Residents participating (weekly)",
+        "unit": "count"
+      },
+      {
+        "key": "totalResidents",
+        "label": "Total residents",
+        "unit": "count"
+      }
+    ]
+  },
+  {
+    "code": "LE-02",
+    "section": "Life Enrichment",
+    "name": "Memory Care Resident Engagement Hours per Resident per Week",
+    "benchmark": {
+      "value": "Life Enrichment: MC Structured Engagement (4-6 hours/day) — Alzheimer's Association",
+      "source": "Alzheimer's Association",
+      "basis": "Industry / CMS survey",
+      "threshold": {
+        "scored": true,
+        "direction": "higher",
+        "target": 4,
+        "lo": 4,
+        "hi": 6,
+        "note": "MC structured engagement 4-6 hrs/day."
+      }
+    },
+    "source": "upload",
+    "intake": "report-guide",
+    "unit": "hours",
+    "formula": "structuredEngagementHours / mcResidents",
+    "inputs": [
+      {
+        "key": "structuredEngagementHours",
+        "label": "Structured MC engagement hours",
+        "unit": "hours"
+      },
+      {
+        "key": "mcResidents",
+        "label": "Memory-care residents",
+        "unit": "count"
+      }
+    ]
+  },
+  {
+    "code": "LE-03",
+    "section": "Life Enrichment",
+    "name": "Resident Satisfaction — Programming",
+    "benchmark": {
+      "value": "Life Enrichment: Resident Satisfaction — Programming (>85%)",
+      "source": "Industry surveys",
+      "basis": "Industry / CMS survey",
+      "threshold": {
+        "scored": true,
+        "direction": "higher",
+        "target": 85,
+        "note": "Programming satisfaction >85%."
+      }
+    },
+    "source": "manual",
+    "intake": "manual",
+    "unit": "score",
+    "formula": "direct",
+    "inputs": [
+      {
+        "key": "programmingSatScore",
+        "label": "Resident satisfaction — programming",
+        "unit": "score"
+      }
+    ],
+    "directEntry": true
+  },
+  {
+    "code": "DIN-01",
+    "section": "Dining Services",
+    "name": "Resident Meal Satisfaction Score",
+    "benchmark": {
+      "value": "Dining Services: Resident Meal Satisfaction (>85% favorable; top quartile >90%) — NEW in v1.0",
+      "source": "Holleran; Pinnacle Quality Insight; industry surveys",
+      "basis": "Industry / CMS survey",
+      "threshold": {
+        "scored": true,
+        "direction": "higher",
+        "target": 85,
+        "note": "Meal satisfaction >85% (top quartile >90)."
+      }
+    },
+    "source": "manual",
+    "intake": "manual",
+    "unit": "score",
+    "formula": "direct",
+    "inputs": [
+      {
+        "key": "mealSatScore",
+        "label": "Resident meal satisfaction score",
+        "unit": "score"
+      }
+    ],
+    "directEntry": true
+  },
+  {
+    "code": "DIN-02",
+    "section": "Dining Services",
+    "name": "Food Cost per Resident per Day",
+    "benchmark": {
+      "value": "SOSH 2025 publishes dietary / raw-food cost per resident day by care level; practitioner rule-of-thumb ≈ $4.50–$6.50 per resident per day. Benchmark against the SOSH dietary line for the segment; CPI toggle aligns SOSH dollars to the period.",
+      "source": "SOSH 2025 (dietary cost per resident day, by care level) — CPI-adjusted",
+      "basis": "Industry — SOSH 2025 (dollar; CPI toggle)",
+      "threshold": {
+        "scored": false,
+        "note": "SOSH dietary cost/RD by care level; no numeric in text — enter target $."
+      }
+    },
+    "source": "upload",
+    "intake": "report-guide",
+    "unit": "dollar",
+    "formula": "rawFoodCost / residentDays",
+    "inputs": [
+      {
+        "key": "rawFoodCost",
+        "label": "Raw food cost in period",
+        "unit": "dollar"
+      },
+      {
+        "key": "residentDays",
+        "label": "Resident-days",
+        "unit": "count"
+      }
+    ],
+    "cpiAdjust": true
+  },
+  {
+    "code": "DIN-03",
+    "section": "Dining Services",
+    "name": "Therapeutic Diet Compliance Rate",
+    "benchmark": {
+      "value": "Dining Services: Therapeutic Diet Compliance Rate (>98% of ordered diets correctly served) — NEW",
+      "source": "ANFP best practice; CMS F-tag F-812 (food safety)",
+      "basis": "Industry / CMS survey",
+      "threshold": {
+        "scored": true,
+        "direction": "higher",
+        "target": 98,
+        "note": "Therapeutic diet >98%."
+      }
+    },
+    "source": "upload",
+    "intake": "report-guide",
+    "unit": "percent",
+    "formula": "(therapeuticDietsCorrect / therapeuticDietsTotal) * 100",
+    "inputs": [
+      {
+        "key": "therapeuticDietsTotal",
+        "label": "Therapeutic diet trays served",
+        "unit": "count"
+      },
+      {
+        "key": "therapeuticDietsCorrect",
+        "label": "Served correctly",
+        "unit": "count"
+      }
+    ]
+  },
+  {
+    "code": "DIN-04",
+    "section": "Dining Services",
+    "name": "Special Diet Error Rate",
+    "benchmark": {
+      "value": "Dining Services: Special Diet Error Rate (<2% of trays; zero allergen errors) — NEW",
+      "source": "ANFP; industry best practice",
+      "basis": "Industry / CMS survey",
+      "threshold": {
+        "scored": true,
+        "direction": "lower",
+        "target": 2,
+        "note": "Special diet error <2%; zero allergen."
+      }
+    },
+    "source": "upload",
+    "intake": "report-guide",
+    "unit": "rate",
+    "formula": "(specialDietErrors / specialDietMealsServed) * 100",
+    "inputs": [
+      {
+        "key": "specialDietErrors",
+        "label": "Special-diet errors",
+        "unit": "count"
+      },
+      {
+        "key": "specialDietMealsServed",
+        "label": "Special-diet meals served",
+        "unit": "count"
+      }
+    ]
+  },
+  {
+    "code": "NURC-12",
+    "section": "Nursing / Clinical",
+    "name": "Unplanned Weight Loss Rate",
+    "benchmark": {
+      "value": "Dining Services: Weight Loss Incidence Rate (<5% quarterly; <10% per 6 months) — NEW",
+      "source": "CMS F-tag F-692; MDS Section K",
+      "basis": "Industry / CMS survey",
+      "threshold": {
+        "scored": true,
+        "direction": "lower",
+        "target": 5,
+        "note": "Weight loss <5% quarterly."
+      }
+    },
+    "source": "upload",
+    "intake": "report-guide",
+    "unit": "percent",
+    "formula": "(residentsWithWeightLoss / totalResidents) * 100",
+    "inputs": [
+      {
+        "key": "residentsWithWeightLoss",
+        "label": "Residents with significant weight loss",
+        "unit": "count"
+      },
+      {
+        "key": "totalResidents",
+        "label": "Total residents",
+        "unit": "count"
+      }
+    ],
+    "libraryCode": "DIN-05"
+  },
+  {
+    "code": "DINF-12",
+    "section": "Dining / Food Service",
+    "name": "Nutritional Assessment Completion Rate",
+    "benchmark": {
+      "value": "Dining Services: Nutritional Assessment Completion Rate (100% on-time) — NEW",
+      "source": "CMS F-tag F-692; ANFP best practice",
+      "basis": "Industry / CMS survey",
+      "threshold": {
+        "scored": true,
+        "direction": "higher",
+        "target": 100,
+        "note": "Nutritional assessment 100% on-time."
+      }
+    },
+    "source": "upload",
+    "intake": "report-guide",
+    "unit": "percent",
+    "formula": "(nutAssessmentsCompleted / nutAssessmentsDue) * 100",
+    "inputs": [
+      {
+        "key": "nutAssessmentsDue",
+        "label": "Nutritional assessments due",
+        "unit": "count"
+      },
+      {
+        "key": "nutAssessmentsCompleted",
+        "label": "Completed on time",
+        "unit": "count"
+      }
+    ],
+    "libraryCode": "DIN-06"
+  },
+  {
+    "code": "DINF-13",
+    "section": "Dining / Food Service",
+    "name": "Hydration Monitoring Compliance Rate",
+    "benchmark": {
+      "value": "Dining Services: Hydration Monitoring Compliance Rate (100% of at-risk residents) — NEW",
+      "source": "CMS F-tag F-692; CDC NHSN",
+      "basis": "Industry / CMS survey",
+      "threshold": {
+        "scored": true,
+        "direction": "higher",
+        "target": 100,
+        "note": "Hydration monitoring 100% of at-risk."
+      }
+    },
+    "source": "upload",
+    "intake": "report-guide",
+    "unit": "percent",
+    "formula": "(hydrationMonitored / hydrationRequired) * 100",
+    "inputs": [
+      {
+        "key": "hydrationRequired",
+        "label": "Residents requiring hydration monitoring",
+        "unit": "count"
+      },
+      {
+        "key": "hydrationMonitored",
+        "label": "Monitored per protocol",
+        "unit": "count"
+      }
+    ],
+    "libraryCode": "DIN-07"
+  },
+  {
+    "code": "DIN-08",
+    "section": "Dining Services",
+    "name": "Dining Room Attendance Rate",
+    "benchmark": {
+      "value": "Dining Services: Dining Room Attendance Rate (IL >90%; AL 75-85%; MC 60-75%) — NEW",
+      "source": "LeadingAge; Argentum operational benchmarks",
+      "basis": "Industry / CMS survey",
+      "threshold": {
+        "scored": true,
+        "direction": "higher",
+        "target": 80,
+        "byCareLevel": {
+          "IL": 90,
+          "AL": 80,
+          "MC": 67
+        },
+        "note": "Dining attendance IL>90/AL75-85/MC60-75."
+      }
+    },
+    "source": "manual",
+    "intake": "manual",
+    "unit": "percent",
+    "formula": "(diningRoomAttendees / totalResidents) * 100",
+    "inputs": [
+      {
+        "key": "diningRoomAttendees",
+        "label": "Residents attending dining room",
+        "unit": "count"
+      },
+      {
+        "key": "totalResidents",
+        "label": "Total residents",
+        "unit": "count"
+      }
+    ]
+  },
+  {
+    "code": "DIN-09",
+    "section": "Dining Services",
+    "name": "Kitchen Sanitation and Food Safety Inspection Score",
+    "benchmark": {
+      "value": "Dining Services: Kitchen Sanitation Inspection Score (>95%; zero critical violations) — NEW",
+      "source": "State health department food-service inspection; CMS F-tag F-812",
+      "basis": "Industry / CMS survey",
+      "threshold": {
+        "scored": true,
+        "direction": "higher",
+        "target": 95,
+        "note": "Sanitation score >95%; zero critical."
+      }
+    },
+    "source": "upload",
+    "intake": "report-guide",
+    "unit": "score",
+    "formula": "direct",
+    "inputs": [
+      {
+        "key": "sanitationScore",
+        "label": "Kitchen sanitation/food-safety inspection score",
+        "unit": "score"
+      }
+    ],
+    "directEntry": true
+  },
+  {
+    "code": "DIN-10",
+    "section": "Dining Services",
+    "name": "Cost per Meal Served",
+    "benchmark": {
+      "value": "Derived from the SOSH 2025 dietary cost-per-resident-day line ÷ meals served per resident day (≈3). Benchmark cost/meal against the SOSH-derived segment figure; CPI toggle aligns SOSH dollars to the period.",
+      "source": "SOSH 2025 (dietary cost ÷ meals/day, by care level) — CPI-adjusted",
+      "basis": "Industry — SOSH 2025 (dollar; CPI toggle)",
+      "threshold": {
+        "scored": false,
+        "note": "SOSH-derived cost per meal; no numeric in text — enter target $."
+      }
+    },
+    "source": "upload",
+    "intake": "report-guide",
+    "unit": "dollar",
+    "formula": "totalDiningCost / mealsServed",
+    "inputs": [
+      {
+        "key": "totalDiningCost",
+        "label": "Total dining cost (food+labor+supplies)",
+        "unit": "dollar"
+      },
+      {
+        "key": "mealsServed",
+        "label": "Meals served",
+        "unit": "count"
+      }
+    ],
+    "cpiAdjust": true
+  },
+  {
+    "code": "HRP-10",
+    "section": "HR / Payroll / Workforce",
+    "name": "Labor Hours per Resident Day",
+    "benchmark": {
+      "value": "Context/monitor metric — total worked hours (all departments) per resident-day; own-trend, watched alongside labor cost ratios.",
+      "source": "Senior Living KPI Library (Final GAPS) HRP-10",
+      "basis": "Internal — own-baseline",
+      "threshold": {
+        "scored": false,
+        "note": "Direction: context (monitor), no fixed target."
+      }
+    },
+    "source": "upload",
+    "intake": "report-guide",
+    "unit": "rate",
+    "formula": "totalHours / residentDays",
+    "inputs": [
+      {
+        "key": "totalHours",
+        "label": "Total worked hours",
+        "unit": "hours"
+      },
+      {
+        "key": "residentDays",
+        "label": "Resident-days in period",
+        "unit": "count"
+      }
+    ]
+  },
+  {
+    "code": "HRP-12",
+    "section": "HR / Payroll / Workforce",
+    "name": "Workers' Compensation Claim Rate",
+    "benchmark": {
+      "value": "Claim-frequency rate (claims per employee), distinct from HR-08's dollar-cost ratio — lower is better.",
+      "source": "Senior Living KPI Library (Final GAPS) HRP-12",
+      "basis": "Internal — own-baseline",
+      "threshold": {
+        "scored": false,
+        "note": "Direction: lower is better; no published national claim-frequency benchmark on file."
+      }
+    },
+    "source": "upload",
+    "intake": "report-guide",
+    "unit": "percent",
+    "formula": "(wcClaimCount / avgHeadcount) * 100",
+    "inputs": [
+      {
+        "key": "wcClaimCount",
+        "label": "Number of workers' compensation claims in period",
+        "unit": "count"
+      },
+      {
+        "key": "avgHeadcount",
+        "label": "Average headcount",
+        "unit": "count"
+      }
+    ]
+  },
+  {
+    "code": "NURC-04",
+    "section": "Nursing / Clinical",
+    "name": "Facility-Acquired Pressure Injury Rate",
+    "benchmark": {
+      "value": "Nursing SNF: Pressure Ulcer Incidence — national 5-6%; Stage 2+ new-onset <2% (per 1,000 resident-days basis here).",
+      "source": "CMS Quality Measures; Senior Living KPI Library (Final GAPS) NURC-04",
+      "basis": "Industry / CMS survey",
+      "threshold": {
+        "scored": true,
+        "direction": "lower",
+        "target": 2,
+        "note": "Stage 2+ new-onset incidence <2% (rate basis differs slightly from NURC-03's prevalence %)."
+      }
+    },
+    "source": "upload",
+    "intake": "report-guide",
+    "unit": "rate",
+    "formula": "(newPressureInjuries / residentDays) * 1000",
+    "inputs": [
+      {
+        "key": "newPressureInjuries",
+        "label": "New (facility-acquired) Stage 2+ pressure injuries",
+        "unit": "count"
+      },
+      {
+        "key": "residentDays",
+        "label": "Resident-days in period",
+        "unit": "count"
+      }
+    ],
+    "careLevels": [
+      "AL",
+      "MC"
+    ]
+  },
+  {
+    "code": "NURC-08",
+    "section": "Nursing / Clinical",
+    "name": "Unplanned Hospital Transfer Rate",
+    "benchmark": {
+      "value": "Distinct from NURC-07's 30-day readmission %— this is a raw transfer-event rate per 1,000 resident-days, lower is better.",
+      "source": "Senior Living KPI Library (Final GAPS) NURC-08",
+      "basis": "Internal — own-baseline",
+      "threshold": {
+        "scored": false,
+        "note": "Direction: lower is better; no published national transfer-rate benchmark on file."
+      }
+    },
+    "source": "upload",
+    "intake": "report-guide",
+    "unit": "rate",
+    "formula": "(hospitalDischarges / residentDays) * 1000",
+    "inputs": [
+      {
+        "key": "hospitalDischarges",
+        "label": "Hospital discharges/returns in period",
+        "unit": "count"
+      },
+      {
+        "key": "residentDays",
+        "label": "Resident-days in period",
+        "unit": "count"
+      }
+    ],
+    "careLevels": [
+      "AL",
+      "MC"
+    ]
+  },
+  {
+    "code": "NURC-17",
+    "section": "Nursing / Clinical",
+    "name": "Nursing Hours per Resident Day (HPRD)",
+    "benchmark": {
+      "value": "Nursing SNF: directionally comparable to CMS Total Nursing HPRD (3.6-3.8 national avg), though this cut is nursing-department worked hours only, not the full RN+LPN+aide PBJ measure.",
+      "source": "CMS staffing requirements; Senior Living KPI Library (Final GAPS) NURC-17",
+      "basis": "Industry / CMS survey (directional)",
+      "threshold": {
+        "scored": false,
+        "note": "Higher is better; compare directionally to the 3.6-3.8 HPRD band, not as an exact match to the CMS PBJ measure."
+      }
+    },
+    "source": "upload",
+    "intake": "report-guide",
+    "unit": "rate",
+    "formula": "nursingHours / residentDays",
+    "inputs": [
+      {
+        "key": "nursingHours",
+        "label": "Nursing department worked hours (regular+OT) in period",
+        "unit": "hours"
+      },
+      {
+        "key": "residentDays",
+        "label": "Resident-days in period",
+        "unit": "count"
+      }
+    ]
+  },
+  {
+    "code": "SALM-08",
+    "section": "Sales / Marketing / CRM",
+    "name": "Net Move-Ins",
+    "benchmark": {
+      "value": "Higher is better — net of move-ins minus move-outs for the period; a positive number indicates net occupancy growth.",
+      "source": "Senior Living KPI Library (Final GAPS) SALM-08",
+      "basis": "Internal — own-baseline",
+      "threshold": {
+        "scored": false,
+        "note": "Direction: higher is better; magnitude is context-dependent on campus size."
+      }
+    },
+    "source": "upload",
+    "intake": "report-guide",
+    "unit": "change",
+    "formula": "admissionsCount - residentsDeparted",
+    "inputs": [
+      {
+        "key": "admissionsCount",
+        "label": "Admissions/move-ins in period",
+        "unit": "count"
+      },
+      {
+        "key": "residentsDeparted",
+        "label": "Residents departed in period",
+        "unit": "count"
+      }
+    ]
+  },
+  {
+    "code": "SALM-09",
+    "section": "Sales / Marketing / CRM",
+    "name": "Move-Out Rate (Attrition)",
+    "benchmark": {
+      "value": "Sales / Revenue: Annual Turnover proxy (IL 44.3%, AL 48.1%, MC 64.7%, CCRC 15.6%, annualized) — this cut is move-outs as % of occupied units for the period.",
+      "source": "SOSH 2025 (Table 2.15 — Annual Turnover); Senior Living KPI Library (Final GAPS) SALM-09",
+      "basis": "Industry / CMS survey (directional)",
+      "threshold": {
+        "scored": false,
+        "note": "Lower is better; compare directionally to SOSH annual turnover after annualizing."
+      }
+    },
+    "source": "upload",
+    "intake": "report-guide",
+    "unit": "percent",
+    "formula": "(residentsDeparted / occupiedUnits) * 100",
+    "inputs": [
+      {
+        "key": "residentsDeparted",
+        "label": "Residents departed in period",
+        "unit": "count"
+      },
+      {
+        "key": "occupiedUnits",
+        "label": "Occupied units (by care level)",
+        "unit": "count"
+      }
+    ],
+    "careLevels": [
+      "IL",
+      "AL",
+      "MC"
+    ]
+  }
+]

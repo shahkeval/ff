@@ -1,0 +1,335 @@
+{
+  "profile": {
+    "communityName": "Cedar Bluff Commons",
+    "operator": "Cedar Bluff Senior Living Group",
+    "address": "4400 Bluff Ridge Parkway",
+    "cityStateZip": "Asheville, NC 28806",
+    "stateAbbr": "NC",
+    "units": {
+      "IL": 120,
+      "AL": 54,
+      "MC": 26,
+      "SNF": 46
+    },
+    "sqft": {
+      "IL": 168000,
+      "AL": 42800,
+      "MC": 18200,
+      "SNF": 41600,
+      "total": 270600
+    },
+    "currentOccupancy": 91.1,
+    "occupancyByLevel": {
+      "IL": 92.8,
+      "AL": 90.7,
+      "MC": 92.3,
+      "SNF": 87
+    },
+    "yearOpened": 1998,
+    "market": {
+      "radiusMiles": 15,
+      "driveTimeMin": 20
+    },
+    "careLevels": [
+      "Independent Living",
+      "Assisted Living",
+      "Memory Care",
+      "Skilled Nursing"
+    ],
+    "operatorServices": [
+      "Home Health",
+      "Hospice (referral network)"
+    ],
+    "structure": {
+      "ccrc": "Yes",
+      "ownership": "Standalone",
+      "tax": "Nonprofit",
+      "config": "Single",
+      "optSecurity": "No"
+    }
+  },
+  "operands": {
+    "census": {
+      "availableUnits": 246,
+      "occupiedUnits": 224,
+      "censusStart": 218,
+      "censusEnd": 224,
+      "totalResidents": 224,
+      "mcResidents": 24,
+      "residentDays": 81760,
+      "totalDays": 81760,
+      "totalPatientDays": 14600,
+      "skilledPatientDays": 6132,
+      "skilledDays": 6132,
+      "residentsDeparted": 58,
+      "sumResidentTenureDays": 44080,
+      "daysByPayer": 14600
+    },
+    "payroll": {
+      "avgHeadcount": 176,
+      "separations": 79,
+      "totalHours": 307840,
+      "overtimeHours": 20933,
+      "agencyHours": 24935,
+      "scheduledHours": 286907,
+      "unscheduledAbsenceHours": 12006,
+      "approvedPositions": 162,
+      "openPositions": 14,
+      "positionsFilled": 46,
+      "newHires": 52,
+      "newHiresRetained90": 39,
+      "sumDaysToFill": 2392,
+      "trainingsRequired": 864,
+      "trainingsCompleted": 830,
+      "grossWages": 8420000,
+      "wcCost": 176820
+    },
+    "clinical": {
+      "dosesAdministered": 214000,
+      "medErrors": 214,
+      "fallsWithMajorInjury": 9,
+      "newPressureInjuries": 4,
+      "totalResidents": 113,
+      "hospitalDischarges": 96,
+      "hospitalReadmissions30d": 23,
+      "utiCount": 21,
+      "residentsOnPsychotropicPRN": 34,
+      "carePlansDue": 210,
+      "carePlansOnTime": 202,
+      "mdsTotal": 168,
+      "mdsOnTime": 166,
+      "auditedAssessments": 60,
+      "accurateAssessments": 57,
+      "elopementCount": 2,
+      "medicareDischarges": 44,
+      "sumMedicareLOSDays": 1188,
+      "cmiPT": 1.38,
+      "cmiOT": 1.34,
+      "cmiSLP": 1.16,
+      "cmiNursing": 1.47,
+      "cmiNTA": 1.05
+    },
+    "dining": {
+      "mealsServed": 181507,
+      "rawFoodCost": 971064,
+      "totalDiningCost": 3596533,
+      "diningRoomAttendees": 181,
+      "totalResidents": 224,
+      "nutAssessmentsDue": 168,
+      "nutAssessmentsCompleted": 164,
+      "therapeuticDietsTotal": 9800,
+      "therapeuticDietsCorrect": 9645,
+      "specialDietMealsServed": 4100,
+      "specialDietErrors": 9,
+      "hydrationRequired": 62,
+      "hydrationMonitored": 59,
+      "residentsWithWeightLoss": 12,
+      "sanitationScore": 96.5
+    },
+    "sales": {
+      "totalLeads": 612,
+      "leads": 612,
+      "tours": 152,
+      "deposits": 71,
+      "moveInsFromDeposits": 58,
+      "moveInCount": 61,
+      "moveIns": 61,
+      "newMoveIns": 61,
+      "totalMoveOuts": 58,
+      "activeLeads": 84,
+      "achievedRateSum": 314150,
+      "leadsBySource": 612,
+      "moveInsBySource": 61,
+      "moveOutsByReason": 58
+    },
+    "plant": {
+      "workOrdersTotal": 2096,
+      "workOrdersCompletedOnTime": 1656,
+      "sumOpenWODays": 2882,
+      "openWOCount": 126,
+      "pmScheduled": 587,
+      "pmCompletedOnTime": 477,
+      "lifeSafetyRequired": 6,
+      "lifeSafetyCurrent": 6,
+      "vehiclePMScheduled": 24,
+      "vehiclePMCompleted": 22,
+      "energyUsagePrior": 42400000,
+      "energyUsageCurrent": 42360000
+    },
+    "incident": {
+      "incidentCount": 376,
+      "grievanceCount": 34,
+      "grievancesResolvedOnTime": 28
+    },
+    "life-enrichment": {
+      "participatingResidents": 175,
+      "structuredEngagementHours": 220
+    },
+    "financial": {
+      "totalRevenue": 24180000,
+      "skilledRevenue": 5869200,
+      "laborCost": 11193127,
+      "operatingExpenses": 18133127,
+      "operatingIncome": 6046873,
+      "priorNOI": 5623592,
+      "annualOperatingExpenses": 18133127,
+      "annualDepreciationExpense": 1120000,
+      "accumulatedDepreciation": 14800000,
+      "totalAR": 1640000,
+      "arOver90": 216480,
+      "writeOffs": 193440,
+      "unrestrictedCash": 7849408,
+      "actualExpense": 18133127,
+      "budgetExpense": 17317136
+    },
+    "manual": {
+      "residentSatScore": 87.6,
+      "familySatScore": 84.9,
+      "engagementScore": 3.5,
+      "reputationScore": 4.4,
+      "reviewPlatform": "Google + Caring.com (blended)",
+      "programmingSatScore": 85.1,
+      "mealSatScore": 78.4,
+      "grossSqFt": 270600,
+      "monthlyMoveInTarget": 6,
+      "months": 12,
+      "streetRate": 5350
+    }
+  },
+  "cms": {
+    "SNF-2.01": {
+      "value": "6 deficiencies, highest scope/severity D",
+      "status": "watch",
+      "note": "Standard health inspection, most recent survey cycle."
+    },
+    "SNF-2.02": {
+      "value": "1 complaint deficiency, scope/severity D",
+      "status": "pass",
+      "note": "Single complaint survey deficiency in the last 24 months."
+    },
+    "SNF-2.03": {
+      "value": "1 infection-control deficiency, scope/severity E",
+      "status": "watch",
+      "note": "Focused infection control survey."
+    },
+    "SNF-2.04": {
+      "value": "0 open life-safety deficiencies",
+      "status": "pass",
+      "note": "Life Safety Code survey — clean."
+    },
+    "SNF-3.01": {
+      "value": "0.62 RN HPRD (case-mix adjusted)",
+      "status": "watch",
+      "note": "Below the ~0.68 national average."
+    },
+    "SNF-3.02": {
+      "value": "3.41 total nurse HPRD (case-mix adjusted)",
+      "status": "watch",
+      "note": "Just under the 3.6-3.8 national average band."
+    },
+    "SNF-3.03": {
+      "value": "54.2% total nursing staff turnover (PBJ)",
+      "status": "below",
+      "note": "Above the ~53.9% national average, trending worse."
+    },
+    "SNF-3.04": {
+      "value": "1 administrator departure (12 months)",
+      "status": "watch",
+      "note": "One change within the rating window."
+    },
+    "SNF-3.05": {
+      "value": "Weekend total nurse HPRD 2.61 vs weekday 3.41",
+      "status": "below",
+      "note": "23% weekend coverage gap — largest recoverable staffing point loss."
+    },
+    "SNF-4.01": {
+      "value": "15.8%",
+      "status": "pass",
+      "note": "Need for help with ADLs increased — long-stay."
+    },
+    "SNF-4.02": {
+      "value": "19.6%",
+      "status": "pass",
+      "note": "Ability to walk independently worsened — long-stay."
+    },
+    "SNF-4.03": {
+      "value": "7.4%",
+      "status": "pass",
+      "note": "Residents with pressure ulcers — long-stay."
+    },
+    "SNF-4.04": {
+      "value": "14.9%",
+      "status": "watch",
+      "note": "Antipsychotic medication use — long-stay."
+    },
+    "SNF-4.05": {
+      "value": "3.1%",
+      "status": "pass",
+      "note": "UTI — long-stay."
+    },
+    "SNF-4.06": {
+      "value": "1.6%",
+      "status": "pass",
+      "note": "Catheter inserted and left in bladder — long-stay."
+    },
+    "SNF-4.07": {
+      "value": "3.3%",
+      "status": "pass",
+      "note": "Falls with major injury — long-stay."
+    },
+    "SNF-4.08": {
+      "value": "1.58 per 1,000",
+      "status": "watch",
+      "note": "Hospitalizations per 1,000 long-stay resident days."
+    },
+    "SNF-4.09": {
+      "value": "1.05 per 1,000",
+      "status": "pass",
+      "note": "Outpatient ED visits per 1,000 long-stay resident days."
+    },
+    "SNF-5.01": {
+      "value": "21.9%",
+      "status": "watch",
+      "note": "Short-stay residents rehospitalized."
+    },
+    "SNF-5.02": {
+      "value": "10.8%",
+      "status": "pass",
+      "note": "Short-stay outpatient ED visit."
+    },
+    "SNF-5.03": {
+      "value": "1.7%",
+      "status": "pass",
+      "note": "Short-stay newly received antipsychotic."
+    },
+    "SNF-5.04": {
+      "value": "8.9%",
+      "status": "pass",
+      "note": "Short-stay moderate-to-severe pain."
+    },
+    "SNF-5.05": {
+      "value": "2.1%",
+      "status": "pass",
+      "note": "Short-stay new or worsened pressure ulcers."
+    },
+    "SNF-5.06": {
+      "value": "53.8%",
+      "status": "watch",
+      "note": "Short-stay discharged to community."
+    },
+    "SNF-5.07": {
+      "value": "0.59",
+      "status": "watch",
+      "note": "Discharge function score — short-stay."
+    },
+    "SNF-6.01": {
+      "value": "3 stars overall",
+      "status": "watch",
+      "note": "Capped by a 2-star health inspection rating."
+    }
+  },
+  "meta": {
+    "generatedAt": "2026-09-28T12:16:41.621Z",
+    "community": "Cedar Bluff Commons"
+  }
+}

@@ -1,0 +1,31 @@
+Account Number,Account Name,Department,Account Type
+4000,Resident Fees - Independent Living,Independent Living,Revenue
+4010,Resident Fees - Assisted Living,Assisted Living,Revenue
+4020,Resident Fees - Memory Care,Memory Care,Revenue
+4030,Resident Fees - Skilled Nursing (Medicare A),Skilled Nursing,Revenue
+4031,Resident Fees - Skilled Nursing (Medicaid),Skilled Nursing,Revenue
+4032,Resident Fees - Skilled Nursing (Managed Care),Skilled Nursing,Revenue
+4040,Ancillary Service Income,Skilled Nursing,Revenue
+4050,Entrance Fee Amortization,CCRC / Entity,Revenue
+4900,Other Operating Income,Administration,Revenue
+5100,Wages - Direct Care,Nursing,Expense
+5110,Wages - Dining Services,Dining,Expense
+5120,Wages - Housekeeping,Housekeeping,Expense
+5130,Wages - Plant Operations,Plant and Maintenance,Expense
+5140,Wages - Administration,Administration,Expense
+5150,Wages - Sales and Marketing,Sales and Marketing,Expense
+5160,Wages - Life Enrichment,Life Enrichment,Expense
+5200,Payroll Taxes and Benefits,Human Resources,Expense
+5210,Agency and Contract Labor,Human Resources,Expense
+5300,Raw Food Cost,Dining,Expense
+5310,Dining Supplies,Dining,Expense
+5400,Housekeeping Supplies,Housekeeping,Expense
+5500,Plant Maintenance and Repairs,Plant and Maintenance,Expense
+5510,Utilities,Plant and Maintenance,Expense
+5520,Grounds and Landscaping,Plant and Maintenance,Expense
+5600,Marketing and Advertising,Sales and Marketing,Expense
+5700,Insurance,Administration,Expense
+5710,Property Taxes,Administration,Expense
+5800,Depreciation and Amortization,Administration,Expense
+5900,Interest Expense,Finance,Expense
+6000,Corporate/Management Fee,Administration,Expense

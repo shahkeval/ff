@@ -1,0 +1,781 @@
+{
+  "accumulatedDepreciation": {
+    "label": "Accumulated depreciation (plant)",
+    "unit": "dollar",
+    "family": "financial",
+    "intake": "extract"
+  },
+  "accurateAssessments": {
+    "label": "Assessments coded accurately",
+    "unit": "count",
+    "family": "clinical",
+    "intake": "extract"
+  },
+  "achievedRateSum": {
+    "label": "Sum of achieved rate on new move-ins",
+    "unit": "dollar",
+    "family": "sales",
+    "intake": "extract"
+  },
+  "activeLeads": {
+    "label": "Active leads in pipeline",
+    "unit": "count",
+    "family": "sales",
+    "intake": "extract"
+  },
+  "actualExpense": {
+    "label": "Actual departmental expense",
+    "unit": "dollar",
+    "family": "financial",
+    "intake": "extract"
+  },
+  "admissionsCount": {
+    "label": "Admissions/move-ins in period (count, from daily census log)",
+    "unit": "count",
+    "family": "census",
+    "intake": "extract",
+    "sourceHint": "Not yet confirmed from a real sample — best current lead: the resident-level register's \"Action Code\" column, filtered to admission-type codes (exact codes vary by system/EHR — verify against that system's own action-code legend before trusting a match; do not assume a code meaning without checking)."
+  },
+  "agencyHours": {
+    "label": "Agency/contract labor hours",
+    "unit": "hours",
+    "family": "payroll",
+    "intake": "extract"
+  },
+  "annualDepreciationExpense": {
+    "label": "Annual depreciation expense",
+    "unit": "dollar",
+    "family": "financial",
+    "intake": "extract"
+  },
+  "annualOperatingExpenses": {
+    "label": "Annual operating expenses (cash)",
+    "unit": "dollar",
+    "family": "financial",
+    "intake": "extract"
+  },
+  "approvedPositions": {
+    "label": "Approved positions",
+    "unit": "count",
+    "family": "payroll",
+    "intake": "extract"
+  },
+  "arOver90": {
+    "label": "A/R aged > 90 days",
+    "unit": "dollar",
+    "family": "financial",
+    "intake": "extract"
+  },
+  "auditedAssessments": {
+    "label": "Assessments audited",
+    "unit": "count",
+    "family": "clinical",
+    "intake": "extract"
+  },
+  "availableUnits": {
+    "label": "Available/licensed units",
+    "unit": "count",
+    "family": "census",
+    "intake": "extract",
+    "sourceHint": "NOT in the census/occupancy report at all — comes from a separate Property & Unit Master Schedule / licensed-bed-count document. If only a census report was uploaded, this field should be null, not guessed from occupancy numbers.",
+    "careLevelCapable": true
+  },
+  "avgHeadcount": {
+    "label": "Average headcount",
+    "unit": "count",
+    "family": "payroll",
+    "intake": "extract"
+  },
+  "budgetExpense": {
+    "label": "Budgeted departmental expense",
+    "unit": "dollar",
+    "family": "financial",
+    "intake": "extract"
+  },
+  "carePlansDue": {
+    "label": "Care plans due for completion/update",
+    "unit": "count",
+    "family": "clinical",
+    "intake": "extract"
+  },
+  "carePlansOnTime": {
+    "label": "Completed/updated on time",
+    "unit": "count",
+    "family": "clinical",
+    "intake": "extract"
+  },
+  "censusEnd": {
+    "label": "Census at period end",
+    "unit": "count",
+    "family": "census",
+    "intake": "extract",
+    "sourceHint": "Same as censusStart but for the LAST day of the period (e.g. Dec 31) — a dated daily census column or \"Summary By: Status\" table's \"Active\" figure for that specific day. If no dated snapshot column exists, leave null rather than estimate."
+  },
+  "censusStart": {
+    "label": "Census at period start",
+    "unit": "count",
+    "family": "census",
+    "intake": "extract",
+    "sourceHint": "A single day's active-resident count at the very start of the period (e.g. Jan 1) — look for a dated daily census column or a \"Summary By: Status\" table's \"Active\" figure for that specific day. Many census reports only show day-COUNTS per month, not a dated snapshot — if no such column exists, this field is genuinely not derivable and should stay null."
+  },
+  "cmiNTA": {
+    "label": "PDPM CMI — NTA component",
+    "unit": "index",
+    "family": "clinical",
+    "intake": "extract"
+  },
+  "cmiNursing": {
+    "label": "PDPM CMI — Nursing component",
+    "unit": "index",
+    "family": "clinical",
+    "intake": "extract"
+  },
+  "cmiOT": {
+    "label": "PDPM CMI — OT component",
+    "unit": "index",
+    "family": "clinical",
+    "intake": "extract"
+  },
+  "cmiPT": {
+    "label": "PDPM CMI — PT component",
+    "unit": "index",
+    "family": "clinical",
+    "intake": "extract"
+  },
+  "cmiSLP": {
+    "label": "PDPM CMI — SLP component",
+    "unit": "index",
+    "family": "clinical",
+    "intake": "extract"
+  },
+  "daysByPayer": {
+    "label": "SNF patient-days broken out by payer type, then summed — sum every payer-category row's day count in the payer breakdown, EXCLUDING any row already labeled 'Total' (to avoid double counting)",
+    "unit": "days",
+    "family": "census",
+    "intake": "extract",
+    "sourceHint": "This field is SNF-SPECIFIC, not a campus-wide total — despite the generic report title. Use only the SKILLED NURSING building/section's own \"Summary By: Payer\" breakdown (sum every payer-category row's day count there, EXCLUDING any row already labeled \"Total\"). Do NOT use a campus-wide/\"Grand Total\" payer sheet that blends IL/AL/SNF together — that would overstate this figure by including non-SNF days."
+  },
+  "deposits": {
+    "label": "Deposits taken",
+    "unit": "count",
+    "family": "sales",
+    "intake": "extract"
+  },
+  "diningRoomAttendees": {
+    "label": "Residents attending dining room",
+    "unit": "count",
+    "family": "dining",
+    "intake": "extract"
+  },
+  "dosesAdministered": {
+    "label": "Doses administered",
+    "unit": "count",
+    "family": "clinical",
+    "intake": "extract"
+  },
+  "elopementCount": {
+    "label": "Elopement incidents in period",
+    "unit": "count",
+    "family": "clinical",
+    "intake": "extract",
+    "careLevelCapable": true
+  },
+  "energyUsageCurrent": {
+    "label": "Total site energy, current period (kBtu)",
+    "unit": "kBtu",
+    "family": "plant",
+    "intake": "extract"
+  },
+  "energyUsagePrior": {
+    "label": "Total site energy, prior period (kBtu)",
+    "unit": "kBtu",
+    "family": "plant",
+    "intake": "extract"
+  },
+  "engagementScore": {
+    "label": "Employee engagement & satisfaction score",
+    "unit": "score",
+    "family": "manual",
+    "intake": "manual"
+  },
+  "fallsWithMajorInjury": {
+    "label": "Falls with major injury in period",
+    "unit": "count",
+    "family": "clinical",
+    "intake": "extract"
+  },
+  "familySatScore": {
+    "label": "Family satisfaction score (as measured)",
+    "unit": "score",
+    "family": "manual",
+    "intake": "manual"
+  },
+  "grievanceCount": {
+    "label": "Grievances/complaints logged",
+    "unit": "count",
+    "family": "incident",
+    "intake": "extract"
+  },
+  "grievancesResolvedOnTime": {
+    "label": "Resolved within standard",
+    "unit": "count",
+    "family": "incident",
+    "intake": "extract"
+  },
+  "grossSqFt": {
+    "label": "Gross building area",
+    "unit": "sqft",
+    "family": "manual",
+    "intake": "manual"
+  },
+  "grossWages": {
+    "label": "Gross wages in period",
+    "unit": "dollar",
+    "family": "payroll",
+    "intake": "extract"
+  },
+  "hospitalDischarges": {
+    "label": "Hospital discharges/returns in period",
+    "unit": "count",
+    "family": "clinical",
+    "intake": "extract",
+    "careLevelCapable": true
+  },
+  "hydrationMonitored": {
+    "label": "Monitored per protocol",
+    "unit": "count",
+    "family": "dining",
+    "intake": "extract"
+  },
+  "hydrationRequired": {
+    "label": "Residents requiring hydration monitoring",
+    "unit": "count",
+    "family": "dining",
+    "intake": "extract"
+  },
+  "incidentCount": {
+    "label": "Incident reports in period",
+    "unit": "count",
+    "family": "incident",
+    "intake": "extract"
+  },
+  "laborCost": {
+    "label": "Total labor cost (wages+benefits+agency)",
+    "unit": "dollar",
+    "family": "financial",
+    "intake": "extract"
+  },
+  "leads": {
+    "label": "Leads/inquiries",
+    "unit": "count",
+    "family": "sales",
+    "intake": "extract"
+  },
+  "leadsBySource": {
+    "label": "Leads keyed by source",
+    "unit": "count",
+    "family": "sales",
+    "intake": "extract"
+  },
+  "lifeSafetyCurrent": {
+    "label": "Inspections current/passed",
+    "unit": "count",
+    "family": "plant",
+    "intake": "extract"
+  },
+  "lifeSafetyRequired": {
+    "label": "Life-safety inspections required",
+    "unit": "count",
+    "family": "plant",
+    "intake": "extract"
+  },
+  "mcResidents": {
+    "label": "Memory-care residents",
+    "unit": "count",
+    "family": "census",
+    "intake": "extract",
+    "sourceHint": "Filter the resident-level register or \"Summary By: Care Level\"/\"Unit\" table to rows tagged Memory Care / \"MC\" (in the Care Level, Unit, or Rate Type column, naming varies by operator), then count distinct resident IDs within that filter."
+  },
+  "mdsOnTime": {
+    "label": "MDS assessments completed on time",
+    "unit": "count",
+    "family": "clinical",
+    "intake": "extract"
+  },
+  "mdsTotal": {
+    "label": "MDS assessments due",
+    "unit": "count",
+    "family": "clinical",
+    "intake": "extract"
+  },
+  "mealSatScore": {
+    "label": "Resident meal satisfaction score",
+    "unit": "score",
+    "family": "manual",
+    "intake": "manual"
+  },
+  "mealsServed": {
+    "label": "Meals served",
+    "unit": "count",
+    "family": "dining",
+    "intake": "extract"
+  },
+  "medErrors": {
+    "label": "Medication administration errors",
+    "unit": "count",
+    "family": "clinical",
+    "intake": "extract"
+  },
+  "medicareDischarges": {
+    "label": "Medicare discharges",
+    "unit": "count",
+    "family": "clinical",
+    "intake": "extract"
+  },
+  "monthlyMoveInTarget": {
+    "label": "Monthly move-in target",
+    "unit": "count",
+    "family": "manual",
+    "intake": "manual"
+  },
+  "months": {
+    "label": "Months in period",
+    "unit": "count",
+    "family": "manual",
+    "intake": "manual"
+  },
+  "moveInCount": {
+    "label": "Move-ins in period",
+    "unit": "count",
+    "family": "sales",
+    "intake": "extract"
+  },
+  "moveIns": {
+    "label": "Move-ins",
+    "unit": "count",
+    "family": "sales",
+    "intake": "extract"
+  },
+  "moveInsBySource": {
+    "label": "Move-ins keyed by source (informational)",
+    "unit": "count",
+    "family": "sales",
+    "intake": "extract"
+  },
+  "moveInsFromDeposits": {
+    "label": "Deposits converting to move-in",
+    "unit": "count",
+    "family": "sales",
+    "intake": "extract"
+  },
+  "moveOutsByReason": {
+    "label": "Move-out counts keyed to the 4 fixed reasons",
+    "unit": "count",
+    "family": "sales",
+    "intake": "extract"
+  },
+  "newHires": {
+    "label": "New hires in cohort",
+    "unit": "count",
+    "family": "payroll",
+    "intake": "extract"
+  },
+  "newHiresRetained90": {
+    "label": "Retained at 90 days",
+    "unit": "count",
+    "family": "payroll",
+    "intake": "extract"
+  },
+  "newMoveIns": {
+    "label": "New move-ins in period",
+    "unit": "count",
+    "family": "sales",
+    "intake": "extract"
+  },
+  "newPressureInjuries": {
+    "label": "New (facility-acquired) Stage 2+ pressure injuries",
+    "unit": "count",
+    "family": "clinical",
+    "intake": "extract",
+    "careLevelCapable": true
+  },
+  "nursingHours": {
+    "label": "Nursing department worked hours (regular+OT) in period",
+    "unit": "hours",
+    "family": "payroll",
+    "intake": "extract"
+  },
+  "nutAssessmentsCompleted": {
+    "label": "Completed on time",
+    "unit": "count",
+    "family": "dining",
+    "intake": "extract"
+  },
+  "nutAssessmentsDue": {
+    "label": "Nutritional assessments due",
+    "unit": "count",
+    "family": "dining",
+    "intake": "extract"
+  },
+  "occupiedUnits": {
+    "label": "AVERAGE occupied units (by care level) over the reporting period — the mean of the daily occupancy/census column across every day in the period, NOT the last day's snapshot (that is censusEnd instead)",
+    "unit": "count",
+    "family": "census",
+    "intake": "extract",
+    "sourceHint": "Not printed directly — derive it: take the \"TOTAL DAYS\" total from \"Summary By: Payer\" or \"Summary By: Care Level\", divide by the number of days in the reporting period (e.g. 365 for a full year) to get the AVERAGE daily occupied units. Do not use a single day's snapshot.",
+    "careLevelCapable": true
+  },
+  "openPositions": {
+    "label": "Open/vacant positions",
+    "unit": "count",
+    "family": "payroll",
+    "intake": "extract"
+  },
+  "openWOCount": {
+    "label": "Open work orders",
+    "unit": "count",
+    "family": "plant",
+    "intake": "extract"
+  },
+  "operatingExpenses": {
+    "label": "Total operating expenses",
+    "unit": "dollar",
+    "family": "financial",
+    "intake": "extract"
+  },
+  "operatingIncome": {
+    "label": "Operating income",
+    "unit": "dollar",
+    "family": "financial",
+    "intake": "extract"
+  },
+  "overtimeHours": {
+    "label": "Overtime hours",
+    "unit": "hours",
+    "family": "payroll",
+    "intake": "extract"
+  },
+  "participatingResidents": {
+    "label": "Residents participating (weekly)",
+    "unit": "count",
+    "family": "life-enrichment",
+    "intake": "extract"
+  },
+  "pmCompletedOnTime": {
+    "label": "Completed on schedule",
+    "unit": "count",
+    "family": "plant",
+    "intake": "extract"
+  },
+  "pmScheduled": {
+    "label": "Preventive-maintenance tasks scheduled",
+    "unit": "count",
+    "family": "plant",
+    "intake": "extract"
+  },
+  "positionsFilled": {
+    "label": "Open requisitions filled during this period (a hiring-events count, e.g. rows with a days-to-fill value) — NOT the currently-filled budgeted headcount (that figure = approvedPositions - openPositions)",
+    "unit": "count",
+    "family": "payroll",
+    "intake": "extract"
+  },
+  "priorNOI": {
+    "label": "Prior-period net operating income",
+    "unit": "dollar",
+    "family": "financial",
+    "intake": "extract"
+  },
+  "programmingSatScore": {
+    "label": "Resident satisfaction — programming",
+    "unit": "score",
+    "family": "manual",
+    "intake": "manual"
+  },
+  "rawFoodCost": {
+    "label": "Raw food cost in period",
+    "unit": "dollar",
+    "family": "dining",
+    "intake": "extract"
+  },
+  "reputationScore": {
+    "label": "Online review rating",
+    "unit": "score",
+    "family": "manual",
+    "intake": "manual"
+  },
+  "residentDays": {
+    "label": "Resident-days in period",
+    "unit": "count",
+    "family": "census",
+    "intake": "extract",
+    "sourceHint": "Report titled \"Summary By: Payer\" (or any Summary-By pivot) — the \"TOTAL DAYS\" row/column total, summed across ALL categories (this is the grand total day-count, not any single payer row). Equivalent to the sum of the \"# of Days\" column across every resident in the resident-level register.",
+    "careLevelCapable": true
+  },
+  "residentSatScore": {
+    "label": "Resident satisfaction score (as measured)",
+    "unit": "score",
+    "family": "manual",
+    "intake": "manual"
+  },
+  "residentsDeparted": {
+    "label": "Residents departed in period",
+    "unit": "count",
+    "family": "census",
+    "intake": "extract",
+    "sourceHint": "Not yet confirmed from a real sample — best current lead: the resident-level register's \"Action Code\" column filtered to discharge/termination-type codes, OR a \"Summary By: Status\" table's discharge-like rows (e.g. \"Discharged Paid\", \"Expired\") — these are day-COUNTS in that table, so getting a resident COUNT requires counting distinct resident IDs under those codes/statuses, not summing the day column.",
+    "careLevelCapable": true
+  },
+  "residentsOnPsychotropicPRN": {
+    "label": "Residents on PRN psychotropic",
+    "unit": "count",
+    "family": "clinical",
+    "intake": "extract"
+  },
+  "residentsWithWeightLoss": {
+    "label": "Residents with significant weight loss",
+    "unit": "count",
+    "family": "dining",
+    "intake": "extract"
+  },
+  "reviewPlatform": {
+    "label": "Source platform (Google/Caring/etc.)",
+    "unit": "text",
+    "family": "manual",
+    "intake": "manual"
+  },
+  "sanitationScore": {
+    "label": "Kitchen sanitation/food-safety inspection score",
+    "unit": "score",
+    "family": "dining",
+    "intake": "extract"
+  },
+  "scheduledHours": {
+    "label": "Scheduled/regular hours in period — the Regular Hours column ONLY, summed; distinct from totalHours (regular+overtime) and from unscheduledAbsenceHours (a separate metric, not part of the schedule)",
+    "unit": "hours",
+    "family": "payroll",
+    "intake": "extract"
+  },
+  "separations": {
+    "label": "Separations (vol+invol) in period",
+    "unit": "count",
+    "family": "payroll",
+    "intake": "extract"
+  },
+  "skilledDays": {
+    "label": "Medicare/skilled patient-days",
+    "unit": "days",
+    "family": "census",
+    "intake": "extract",
+    "sourceHint": "Not yet confirmed from a real sample — best current lead: \"Summary By: Payer\" table, sum the day-counts for Medicare Part A / Medicare-Replacement-type payer rows (labels vary by operator, e.g. \"Medicare A\", \"Medicare Replacement / PDPM\") — verify against this specific report's own payer category list before trusting the match, names are not standardized across systems."
+  },
+  "skilledPatientDays": {
+    "label": "Skilled patient-days",
+    "unit": "days",
+    "family": "census",
+    "intake": "extract",
+    "sourceHint": "Same uncertain case as skilledDays — likely the same \"Summary By: Payer\" Medicare Part A / Medicare-Replacement rows, but the exact category labels must be verified per report since they are not standardized."
+  },
+  "skilledRevenue": {
+    "label": "Skilled revenue",
+    "unit": "dollar",
+    "family": "financial",
+    "intake": "extract"
+  },
+  "specialDietErrors": {
+    "label": "Special-diet errors",
+    "unit": "count",
+    "family": "dining",
+    "intake": "extract"
+  },
+  "specialDietMealsServed": {
+    "label": "Special-diet meals served",
+    "unit": "count",
+    "family": "dining",
+    "intake": "extract"
+  },
+  "streetRate": {
+    "label": "Published street/market rate (blended)",
+    "unit": "dollar",
+    "family": "manual",
+    "intake": "manual"
+  },
+  "structuredEngagementHours": {
+    "label": "Structured MC engagement hours",
+    "unit": "hours",
+    "family": "life-enrichment",
+    "intake": "extract"
+  },
+  "sumDaysToFill": {
+    "label": "Sum of days-to-fill",
+    "unit": "days",
+    "family": "payroll",
+    "intake": "extract"
+  },
+  "sumMedicareLOSDays": {
+    "label": "Sum of Medicare LOS days",
+    "unit": "days",
+    "family": "clinical",
+    "intake": "extract"
+  },
+  "sumOpenWODays": {
+    "label": "Sum of age (days) of open work orders",
+    "unit": "days",
+    "family": "plant",
+    "intake": "extract"
+  },
+  "sumResidentTenureDays": {
+    "label": "Sum of resident tenure days (departed)",
+    "unit": "days",
+    "family": "census",
+    "intake": "extract",
+    "sourceHint": "Requires row-level computation, not a printed total: for each resident who departed within the period, take their own \"# of Days\" value from the resident-level register and sum those — restricted to residents with a discharge/termination action code or end date, not all residents.",
+    "careLevelCapable": true
+  },
+  "therapeuticDietsCorrect": {
+    "label": "Served correctly",
+    "unit": "count",
+    "family": "dining",
+    "intake": "extract"
+  },
+  "therapeuticDietsTotal": {
+    "label": "Therapeutic diet trays served",
+    "unit": "count",
+    "family": "dining",
+    "intake": "extract"
+  },
+  "totalAR": {
+    "label": "Total A/R",
+    "unit": "dollar",
+    "family": "financial",
+    "intake": "extract"
+  },
+  "totalDays": {
+    "label": "Total resident-days in period (same measure as residentDays: sum of daily census, NOT calendar days)",
+    "unit": "days",
+    "family": "census",
+    "intake": "extract",
+    "sourceHint": "Same source and same number as residentDays — \"Summary By: Payer\" (or any Summary-By pivot), the \"TOTAL DAYS\" row/column total."
+  },
+  "totalDiningCost": {
+    "label": "Total dining cost (food+labor+supplies)",
+    "unit": "dollar",
+    "family": "dining",
+    "intake": "extract"
+  },
+  "totalHours": {
+    "label": "Total worked hours",
+    "unit": "hours",
+    "family": "payroll",
+    "intake": "extract"
+  },
+  "totalLeads": {
+    "label": "Total leads",
+    "unit": "count",
+    "family": "sales",
+    "intake": "extract"
+  },
+  "totalMoveOuts": {
+    "label": "Total move-outs",
+    "unit": "count",
+    "family": "sales",
+    "intake": "extract"
+  },
+  "totalPatientDays": {
+    "label": "Total SNF/skilled-nursing patient-days in period — sum of the SNF-specific occupied/census column across every day of the period (SNF care level only, NOT total resident-days across all care levels — that is residentDays instead)",
+    "unit": "days",
+    "family": "census",
+    "intake": "extract",
+    "sourceHint": "Same as residentDays (\"Summary By: Payer\"/\"Care Level\" TOTAL DAYS), but read ONLY from the Skilled Nursing (SNF) building/section's own total — do not use the campus-wide grand total if the report covers multiple care levels/buildings."
+  },
+  "totalResidents": {
+    "label": "Total residents",
+    "unit": "count",
+    "family": "census",
+    "intake": "extract",
+    "sourceHint": "Count of DISTINCT resident IDs in the resident-level register (the \"Resident / ResidentID Number\" section) — watch for the same resident appearing on more than one row (e.g. a payer or care-level change mid-period creates a second row plus a small \"TOTAL\" sub-row for that resident); count unique Resident IDs, not raw rows."
+  },
+  "totalRevenue": {
+    "label": "Total operating revenue",
+    "unit": "dollar",
+    "family": "financial",
+    "intake": "extract"
+  },
+  "tours": {
+    "label": "Tours conducted",
+    "unit": "count",
+    "family": "sales",
+    "intake": "extract"
+  },
+  "trainingsCompleted": {
+    "label": "Mandatory trainings completed",
+    "unit": "count",
+    "family": "payroll",
+    "intake": "extract"
+  },
+  "trainingsRequired": {
+    "label": "Mandatory trainings required",
+    "unit": "count",
+    "family": "payroll",
+    "intake": "extract"
+  },
+  "unrestrictedCash": {
+    "label": "Unrestricted cash & equivalents",
+    "unit": "dollar",
+    "family": "financial",
+    "intake": "extract"
+  },
+  "unscheduledAbsenceHours": {
+    "label": "Unscheduled absence/call-off hours",
+    "unit": "hours",
+    "family": "payroll",
+    "intake": "extract"
+  },
+  "utiCount": {
+    "label": "UTIs in period",
+    "unit": "count",
+    "family": "clinical",
+    "intake": "extract"
+  },
+  "vehiclePMCompleted": {
+    "label": "Completed on schedule",
+    "unit": "count",
+    "family": "plant",
+    "intake": "extract"
+  },
+  "vehiclePMScheduled": {
+    "label": "Vehicle PM tasks scheduled",
+    "unit": "count",
+    "family": "plant",
+    "intake": "extract"
+  },
+  "wcClaimCount": {
+    "label": "Number of workers' compensation claims in period",
+    "unit": "count",
+    "family": "payroll",
+    "intake": "extract"
+  },
+  "wcCost": {
+    "label": "Workers' compensation cost in period",
+    "unit": "dollar",
+    "family": "payroll",
+    "intake": "extract"
+  },
+  "workOrdersCompletedOnTime": {
+    "label": "Completed within standard",
+    "unit": "count",
+    "family": "plant",
+    "intake": "extract"
+  },
+  "workOrdersTotal": {
+    "label": "Work orders in period",
+    "unit": "count",
+    "family": "plant",
+    "intake": "extract"
+  },
+  "writeOffs": {
+    "label": "Bad debt + write-offs",
+    "unit": "dollar",
+    "family": "financial",
+    "intake": "extract"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "postgres": {
+      "command": "node",
+      "args": [
+        "C:/VMP-POC/mcp-postgres-rw/index.mjs",
+        "postgresql://devteam:D3vteaM%2321@172.16.1.30:5432/VMP-POC"
+      ]
+    }
+  }
+}

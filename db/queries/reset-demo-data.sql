@@ -1,0 +1,4 @@
+-- Reset the demo community's operand values back to the shipped synthetic
+-- baseline (undoes any edits made while testing "change a value, see the
+-- report move"). Just re-runs the same seed used at setup time.
+-- From a shell: node db/run-sql.js 004_seed_demo_community.sql
